@@ -1,4 +1,4 @@
-{ self }:
+    { self }:
 { pkgs, config, lib, ... }:
 
 with lib;
@@ -16,61 +16,25 @@ in
 
   config = mkIf config.audio.vst.rvxx.enable
   {
+    audio.audioenv.enable = true;
+    audio.audioenv.bwrap_args = [
+      ''--dir /opt/Audio\ Assault''
+      ''--bind ${config.audio.vst.rvxx.path} /opt/Audio\ Assault/RVXX''
+      ''--ro-bind ${rvxx}/RVXX\ v2\ Standalone /opt/Audio\ Assault/RVXX/RVXX\ v2\ Standalone''
+      ''--ro-bind "${rvxx}/Presets" "/opt/Audio Assault/RVXX/Presets/orig"''
+      ''--ro-bind "${rvxx}/IRs" "/opt/Audio Assault/RVXX/IRs/orig"''
+    ];
     home.packages = 
-    let
-      wrappa = ''
-        blacklist=(/nix /dev /proc)
-        declare -a auto_mounts
-        for dir in /*; do
-            if [[ -d "$dir" ]] && [[ ! "''${blacklist[@]}" =~ "$dir" ]]; then
-            auto_mounts+=(--bind "$dir" "$dir")
-            fi
-        done
-        declare -a irs
-        for ir in ${rvxx}/IRs/*; do
-          ir=''${ir##*/}
-          irs+=(--ro-bind "${rvxx}/IRs/$ir" "/opt/Audio Assault/RVXX/IRs/$ir")
-        done
-        declare -a presets
-        for preset in ${rvxx}/Presets/*; do
-          preset=''${preset##*/}
-          presets+=(--ro-bind "${rvxx}/Presets/$preset" "/opt/Audio Assault/RVXX/Presets/$preset")
-        done
-        cmd=(
-            ${bwrap}
-            --dev-bind /dev /dev
-            --proc /proc
-            --ro-bind /nix /nix
-            "''${auto_mounts[@]}"
-            --dir /opt/Audio\ Assault
-            --bind ${config.audio.vst.rvxx.path} /opt/Audio\ Assault/RVXX
-            --ro-bind ${rvxx}/RVXX\ v2\ Standalone /opt/Audio\ Assault/RVXX/RVXX\ v2\ Standalone
-            "''${irs[@]}"
-            "''${presets[@]}"
-        )
-      '';
-    in
     [ 
       (pkgs.writeShellApplication {
         name = "RVXX";
         
-        text = wrappa + ''
-        cmd+=(${rvxx}/RVXX\ v2\ Standalone)
-        exec "''${cmd[@]}"
+        text = ''
+          audioenv ${rvxx}/RVXX\ v2\ Standalone
         '';
 
         checkPhase = "";
-      })
-      (pkgs.writeShellApplication {
-        name = "audioenv";
-        
-        text = wrappa + ''
-        cmd+=("$@")
-        exec "''${cmd[@]}"
-        '';
-
-        checkPhase = "";
-      })      
+      })  
     ];
     home.activation = {
      rvxx = lib.hm.dag.entryAfter [ "writeBoundary" ] ''

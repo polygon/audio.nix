@@ -46,7 +46,6 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "AudioAssault RVXX";
     homepage = "https://audioassault.mx/products/rvxx";
-    license = licenses.cc-by-40;
     platforms = platforms.all;
     maintainers = with maintainers; [ polygon ];
   };
