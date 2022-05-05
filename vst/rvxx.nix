@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
 
       "nix-prefetch-url file://${name}"
     '';
-    sha256 = "1asgldqvsvvy0nyyyp0i2hyd94v84h6bfdcrax1bkzb0iw8gsx1m";
+    sha256 = "sha256-NXT9EI9g/blCV5k1twwkaJPUPBQRXO+9BX5vvXGjT6s=";
   };
 
   unpackPhase = ''
