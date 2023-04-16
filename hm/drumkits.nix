@@ -3,7 +3,7 @@
 
 with lib;
 let
-  shittyKit = self.packages.${pkgs.system}.drumkits.shittyKit;
+  shittyKit = self.packages.${pkgs.system}.shittyKit;
 in
 {
   options.audio.drumkits.shittyKit.enable = mkEnableOption "Shitty Kit";

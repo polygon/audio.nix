@@ -3,7 +3,7 @@
 
 with lib;
 let
-  rvxx = self.packages.${pkgs.system}.vst.rvxx;
+  rvxx = self.packages.${pkgs.system}.rvxx;
   bwrap = "${pkgs.bubblewrap}/bin/bwrap";
 in
 {
@@ -32,7 +32,7 @@ in
         text = ''
           audioenv ${rvxx}/RVXX\ v2\ Standalone
         '';
-
+ 
         checkPhase = "";
       })  
     ];
