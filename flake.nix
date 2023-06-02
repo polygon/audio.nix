@@ -2,7 +2,7 @@
   description = "Audio Nix packages and modules";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
   };
 
 
@@ -25,6 +25,7 @@
       bitwig-studio5-beta5 = pkgs.callPackage ./bitwig/bitwig-studio5-beta5.nix { };
       bitwig-studio5-beta6 = pkgs.callPackage ./bitwig/bitwig-studio5-beta6.nix { };
       bitwig-studio5-beta8 = pkgs.callPackage ./bitwig/bitwig-studio5-beta8.nix { };
+      bitwig-studio5-beta9 = pkgs.callPackage ./bitwig/bitwig-studio5-beta9.nix { };
     };
 
     nixosModules.default = import ./modules self;
@@ -37,7 +38,7 @@
         modules = [
           {
             boot.isContainer = true;
-            system.stateVersion = "22.11";
+            system.stateVersion = "23.05";
           }
           self.nixosModules.default
         ];
