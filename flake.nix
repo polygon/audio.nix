@@ -30,7 +30,8 @@
       bitwig-studio5-beta11 = pkgs.callPackage ./bitwig/bitwig-studio5-beta11.nix { };
       bitwig-studio5-beta12 = pkgs.callPackage ./bitwig/bitwig-studio5-beta12.nix { };
       bitwig-studio5-beta13 = pkgs.callPackage ./bitwig/bitwig-studio5-beta13.nix { };
-      bitwig-studio5-latest = self.packages.${system}.bitwig-studio5-beta13;
+      bitwig-studio5 = pkgs.callPackage ./bitwig/bitwig-studio-5.0.nix { };
+      bitwig-studio5-latest = self.packages.${system}.bitwig-studio5;
     };
 
     nixosModules.default = import ./modules self;
