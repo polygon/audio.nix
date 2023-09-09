@@ -18,6 +18,7 @@
 
       # Various VSTs
       rvxx = pkgs.callPackage ./vst/rvxx.nix { };
+      atlas2 = pkgs.callPackage ./vst/atlas2.nix { };
 
       # Bitwig
       bitwig-studio4 = pkgs.callPackage ./bitwig/bitwig-studio4.nix { };
@@ -32,7 +33,15 @@
       bitwig-studio5-beta13 = pkgs.callPackage ./bitwig/bitwig-studio5-beta13.nix { };
       bitwig-studio5 = pkgs.callPackage ./bitwig/bitwig-studio-5.0.nix { };
       bitwig-studio5-latest = self.packages.${system}.bitwig-studio5;
+
+      # Chow plugins
+      chow-centaur = pkgs.callPackage ./chow/chow-centaur.nix { };  
+      chow-kick = pkgs.callPackage ./chow/chow-kick.nix { };  
+      chow-phaser = pkgs.callPackage ./chow/chow-phaser.nix { };  
+      chow-tape-model = pkgs.callPackage ./chow/chow-tape-model.nix { };  
+      chow-multitool = pkgs.callPackage ./chow/chow-multitool.nix { };
     };
+
 
     nixosModules.default = import ./modules self;
 
