@@ -1,14 +1,13 @@
 { stdenv
 , fetchurl
 , alsa-lib
-, at-spi2-atk
+, atk
 , cairo
 , dpkg
 , ffmpeg
 , freetype
 , gdk-pixbuf
 , glib
-, gnome2
 , gtk3
 , harfbuzz
 , lib
@@ -17,6 +16,7 @@
 , libjpeg
 , libxkbcommon
 , makeWrapper
+, pango
 , pipewire
 , pulseaudio
 , wrapGAppsHook
@@ -27,11 +27,11 @@
 
 stdenv.mkDerivation rec {
   pname = "bitwig-studio";
-  version = "5.0";
+  version = "5.0.7";
 
   src = fetchurl {
-    url = "https://downloads.bitwig.com/5.0/bitwig-studio-5.0.deb";
-    sha256 = "sha256-0/S/aNoQA1nAdnr8nUWVLwzrDm+MHqmGIIjPW5YIr7s=";
+    url = "https://downloads.bitwig.com/stable/${version}/${pname}-${version}.deb";
+    sha256 = "sha256-jsHGUAVRUiz9soffW1PvF6UUGzbGhltaKtEW5ynq/Xk=";
   };
 
   nativeBuildInputs = [ dpkg makeWrapper wrapGAppsHook ];
@@ -46,12 +46,11 @@ stdenv.mkDerivation rec {
 
   buildInputs = with xorg; [
     alsa-lib
-    at-spi2-atk
+    atk
     cairo
     freetype
     gdk-pixbuf
     glib
-    gnome2.pango
     gtk3
     harfbuzz
     libglvnd
@@ -63,6 +62,7 @@ stdenv.mkDerivation rec {
     libX11
     libXtst
     libxkbcommon
+    pango
     pipewire
     pulseaudio
     stdenv.cc.cc.lib
