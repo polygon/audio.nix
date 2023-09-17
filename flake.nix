@@ -19,6 +19,7 @@
       # Various VSTs
       rvxx = pkgs.callPackage ./vst/rvxx.nix { };
       atlas2 = pkgs.callPackage ./vst/atlas2.nix { };
+      plugdata = pkgs.callPackage ./vst/plugdata.nix { };
 
       # Bitwig
       bitwig-studio4 = pkgs.callPackage ./bitwig/bitwig-studio4.nix { };
