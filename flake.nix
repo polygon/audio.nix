@@ -33,7 +33,8 @@
       bitwig-studio5-beta12 = pkgs.callPackage ./bitwig/bitwig-studio5-beta12.nix { };
       bitwig-studio5-beta13 = pkgs.callPackage ./bitwig/bitwig-studio5-beta13.nix { };
       bitwig-studio5 = pkgs.callPackage ./bitwig/bitwig-studio-5.0.nix { };
-      bitwig-studio5-latest = self.packages.${system}.bitwig-studio5;
+      bitwig-studio5-1-beta1 = pkgs.callPackage ./bitwig/bitwig-studio-5.1-beta1.nix { };
+      bitwig-studio5-latest = self.packages.${system}.bitwig-studio5-1-beta1;
 
       # Chow plugins
       chow-centaur = pkgs.callPackage ./chow/chow-centaur.nix { };  
