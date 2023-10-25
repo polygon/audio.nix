@@ -20,6 +20,7 @@
       rvxx = pkgs.callPackage ./vst/rvxx.nix { };
       atlas2 = pkgs.callPackage ./vst/atlas2.nix { };
       plugdata = pkgs.callPackage ./vst/plugdata.nix { };
+      paulxstretch = pkgs.callPackage ./vst/paulxstretch.nix { };
 
       # Bitwig
       bitwig-studio4 = pkgs.callPackage ./bitwig/bitwig-studio4.nix { };
@@ -34,7 +35,9 @@
       bitwig-studio5-beta13 = pkgs.callPackage ./bitwig/bitwig-studio5-beta13.nix { };
       bitwig-studio5 = pkgs.callPackage ./bitwig/bitwig-studio-5.0.nix { };
       bitwig-studio5-1-beta1 = pkgs.callPackage ./bitwig/bitwig-studio-5.1-beta1.nix { };
-      bitwig-studio5-latest = self.packages.${system}.bitwig-studio5-1-beta1;
+      bitwig-studio5-1-beta2 = pkgs.callPackage ./bitwig/bitwig-studio-5.1-beta2.nix { };
+      bitwig-studio5-latest = self.packages.${system}.bitwig-studio5-1-beta2;
+      bitwig-studio5-stable-latest = self.packages.${system}.bitwig-studio5;
 
       # Chow plugins
       chow-centaur = pkgs.callPackage ./chow/chow-centaur.nix { };  
@@ -48,6 +51,21 @@
     nixosModules.default = import ./modules self;
 
     hmModule = import ./hm { inherit self; };     
+
+    overlays.default = (final: prev: {
+      atlas2 = self.packages.${system}.atlas2;
+      plugdata = self.packages.${system}.plugdata;
+      paulxstretch = self.packages.${system}.paulxstretch;
+      bitwig-studio4 = self.packages.${system}.bitwig-studio4;
+      bitwig-studio5 = self.packages.${system}.bitwig-studio5;
+      bitwig-studio5-latest = self.packages.${system}.bitwig-studio5-latest;
+      bitwig-studio5-stable-latest = self.packages.${system}.bitwig-studio5-stable-latest;
+      chow-centaur = self.packages.${system}.chow-centaur;
+      chow-kick = self.packages.${system}.chow-kick;
+      chow-phaser = self.packages.${system}.chow-phaser;
+      chow-tape-model = self.packages.${system}.chow-tape-model;
+      chow-multitool = self.packages.${system}.chow-multitool;
+    });
 
     # NixOS Container for testing
     nixosConfigurations.devcontainer = nixpkgs.lib.nixosSystem {
