@@ -49,6 +49,9 @@ stdenv.mkDerivation (finalAttrs: {
     xorg.libXinerama
     xorg.xrandr
     xorg.libXcursor
+    xorg.libXfixes
+    xorg.libXrender
+    xorg.libXScrnSaver
     #pcre2
     #pcre
     #libuuid
@@ -73,6 +76,9 @@ stdenv.mkDerivation (finalAttrs: {
     "-lXcursor"
     "-lXinerama"
     "-lXrandr"
+    "-lXfixes"
+    "-lXrender"
+    "-lXss"
   ]);
 
   # Remove LTO options, does not work just like that
