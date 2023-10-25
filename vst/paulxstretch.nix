@@ -23,7 +23,9 @@
 , sqlite
 , libpsl
 }:
-
+let
+  buildType = "Release";
+in
 stdenv.mkDerivation (finalAttrs: {
   pname = "paulxstretch";
   version = "1.6.0";
@@ -52,20 +54,6 @@ stdenv.mkDerivation (finalAttrs: {
     xorg.libXfixes
     xorg.libXrender
     xorg.libXScrnSaver
-    #pcre2
-    #pcre
-    #libuuid
-    #libselinux
-    #libsepol
-    #libthai
-    #libdatrie
-    #xorg.libXdmcp
-    #libxkbcommon
-    #libepoxy
-    #xorg.libXtst
-    #libsysprof-capture
-    #sqlite.dev
-    #libpsl    
   ];
   
   # JUCE dlopens these, make sure they are in rpath
@@ -86,6 +74,8 @@ stdenv.mkDerivation (finalAttrs: {
     sed -i -e '/juce::juce_recommended_lto_flags/d' CMakeLists.txt
   '';
 
+  cmakeBuildType = buildType;
+
   installPhase = let
     vst3path = "${placeholder "out"}/lib/vst3";
     binpath = "${placeholder "out"}/bin";
@@ -98,9 +88,9 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p ${binpath}
     mkdir -p ${clappath}
 
-    cp -R PaulXStretch_artefacts/Release/VST3/* ${vst3path}
-    cp -R PaulXStretch_artefacts/Release/Standalone/* ${binpath}
-    cp -R PaulXStretch_artefacts/Release/CLAP/* ${clappath}
+    cp -R PaulXStretch_artefacts/${buildType}/VST3/* ${vst3path}
+    cp -R PaulXStretch_artefacts/${buildType}/Standalone/* ${binpath}
+    cp -R PaulXStretch_artefacts/${buildType}/CLAP/* ${clappath}
 
     runHook postInstall
   '';
