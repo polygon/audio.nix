@@ -83,7 +83,7 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = let
     vst3path = "${placeholder "out"}/lib/vst3";
     binpath = "${placeholder "out"}/bin";
-    clappath = "${placeholder "out"}/clap";
+    clappath = "${placeholder "out"}/lib/clap";
   in
   ''
     runHook preInstall
