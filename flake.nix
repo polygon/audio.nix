@@ -69,6 +69,7 @@
       chow-phaser = self.packages.${system}.chow-phaser;
       chow-tape-model = self.packages.${system}.chow-tape-model;
       chow-multitool = self.packages.${system}.chow-multitool;
+      neuralnote = self.packages.${system}.neuralnote;
     });
 
     # NixOS Container for testing
