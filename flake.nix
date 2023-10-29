@@ -46,6 +46,9 @@
       chow-phaser = pkgs.callPackage ./chow/chow-phaser.nix { };  
       chow-tape-model = pkgs.callPackage ./chow/chow-tape-model.nix { };  
       chow-multitool = pkgs.callPackage ./chow/chow-multitool.nix { };
+
+      libonnxruntime-neuralnote = pkgs.callPackage ./vst/neuralnote/libonnxruntime-neuralnote.nix { };
+      neuralnote = pkgs.callPackage ./vst/neuralnote/neuralnote.nix { libonnxruntime-neuralnote = self.packages.${system}.libonnxruntime-neuralnote; };
     };
 
 
