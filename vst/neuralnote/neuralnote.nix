@@ -70,6 +70,7 @@ stdenv.mkDerivation (finalAttrs: {
   # Remove LTO options, does not work just like that
   postPatch = ''
     sed -i -e '/juce::juce_recommended_lto_flags/d' CMakeLists.txt
+    sed -i -e 's/if (canDrop)/if (1)/' ThirdParty/JUCE/modules/juce_gui_basics/native/x11/juce_linux_X11_DragAndDrop.cpp
     cd ThirdParty
     rm -rf onnxruntime || true
     mkdir onnxruntime
