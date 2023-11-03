@@ -21,6 +21,7 @@
       atlas2 = pkgs.callPackage ./vst/atlas2.nix { };
       plugdata = pkgs.callPackage ./vst/plugdata.nix { };
       paulxstretch = pkgs.callPackage ./vst/paulxstretch.nix { };
+      vital = pkgs.callPackage ./vst/vital.nix { };
 
       # Bitwig
       bitwig-studio4 = pkgs.callPackage ./bitwig/bitwig-studio4.nix { };
@@ -71,6 +72,7 @@
       chow-tape-model = self.packages.${system}.chow-tape-model;
       chow-multitool = self.packages.${system}.chow-multitool;
       neuralnote = self.packages.${system}.neuralnote;
+      vital = self.packages.${system}.vital;
     });
 
     # NixOS Container for testing
