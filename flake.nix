@@ -77,6 +77,7 @@
       chow-multitool = self.packages.${system}.chow-multitool;
       neuralnote = self.packages.${system}.neuralnote;
       vital = self.packages.${system}.vital;
+      amplocker = self.packages.${system}.amplocker;
     });
 
     # NixOS Container for testing
