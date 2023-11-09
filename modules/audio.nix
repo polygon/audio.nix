@@ -1,5 +1,0 @@
-flake:
-{ config, pkgs, lib, ... }:
-{
-
-}
