@@ -20,7 +20,6 @@
       shittyKit = pkgs.callPackage ./drumkits/shittykit.nix { };
 
       # Various VSTs
-      rvxx = pkgs.callPackage ./vst/rvxx.nix { };
       amplocker = pkgs.callPackage ./vst/amplocker { };
       atlas2 = pkgs.callPackage ./vst/atlas2.nix { };
       plugdata = pkgs.callPackage ./vst/plugdata.nix { };

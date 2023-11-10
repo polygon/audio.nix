@@ -28,6 +28,11 @@ stdenv.mkDerivation rec {
       "nix store add-file ${name}"
     '';
     # Created using nix hash file Amp+Locker+Linux.zip
+    # UPDATE WARNING:
+    # This derivation does binary patching in order to remove the need
+    # to put things into /opt/Audio\ Assault. This is very sensitive to
+    # specific addresses of strings in the executables and will likely break
+    # for any kind of update.
     sha256 = "sha256-408l/iSIYh67ZIJmq53DwTi1KyL5HkxcmFgzlEjEyUk=";
   };
 
@@ -105,5 +110,6 @@ stdenv.mkDerivation rec {
     homepage = "https://audioassault.mx/";
     platforms = platforms.all;
     maintainers = with maintainers; [ polygon ];
+    mainProgram = "Amp Locker Standalone";
   };
 }
