@@ -19,13 +19,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "libonnxruntime-neuralnote";
-  version = "ca6c740612a2406e9d8c1d5389c65f7775419704";
+  version = "1ac0228d5d07890c0a504fbdeb6588e00afe1b8a";
 
   src = fetchFromGitHub {
     owner = "polygon";
     repo = "libonnxruntime-neuralnote";
     rev = "${version}";
-    sha256 = "sha256-rHuf7d9Pq6cJt5c4n0FaHa+waGxkes/c1e5gThvix0w=";
+    sha256 = "sha256-3u/iHDimvKgKY3yamFAi0HutWeqFHtjGRYUE7ljFpyQ=";
     fetchSubmodules = true;
   };
 
@@ -46,6 +46,7 @@ stdenv.mkDerivation rec {
   patchPhase = ''
     cp ${deps-file} onnxruntime/cmake/deps.txt
     sed -i -e 's#https://gitlab.com/libeigen/eigen/-/archive/d10b27fe37736d2944630ecd7557cefa95cf87c9/eigen-d10b27fe37736d2944630ecd7557cefa95cf87c9.zip#${eigen-dep}#' onnxruntime/cmake/external/eigen.cmake
+    sed -i -e '/--parallel/a\' -e '--skip_submodule_sync \\' build-linux.sh
   '';
 
   buildPhase = ''

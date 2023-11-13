@@ -29,13 +29,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "NeuralNote";
-  version = "3320d4b856c51bb72ebb443ca526d779e6aa1b1a";
+  version = "162e2c93083358c9e3e4c0bd9ff4f4016ead2c32";
 
   src = fetchFromGitHub {
     owner = "polygon";
     repo = finalAttrs.pname;
     rev = "${finalAttrs.version}";
-    sha256 = "sha256-HBhzrlpkOzwx/Xs+Q+DReNprmNh+zTOQ+/Fc3LJjofQ=";
+    sha256 = "sha256-iMjD4evVmM6yo3g0k5Apfm1AhikL5G+WpoCIafDpy5o=";
     fetchSubmodules = true;
   };
 
