@@ -7,7 +7,7 @@
 , fetchFromGitHub
 , freeglut
 , freetype
-, gcc-unwrapped
+, gcc11
 , gtk3
 , lib
 , libGL
@@ -24,24 +24,31 @@
 , libsepol
 , libsysprof-capture
 , libthai
+, libuuid
 , libxkbcommon
 , lv2
 , pcre
+, pcre2
 , pkg-config
 , python3
 , sqlite
-, stdenv
+, gcc11Stdenv
+, webkitgtk
 }:
-
+let
+  # JUCE version in submodules is incompatible with GCC12
+  # See here: https://forum.juce.com/t/build-fails-on-fedora-wrong-c-version/50902/2
+  stdenv = gcc11Stdenv;
+in
 stdenv.mkDerivation rec {
   pname = "ChowTapeModel";
-  version = "2.10.0";
+  version = "2.11.4";
 
   src = fetchFromGitHub {
     owner = "jatinchowdhury18";
     repo = "AnalogTapeModel";
     rev = "v${version}";
-    sha256 = "sha256-iuT7OBRBtMkjcTHayCcne1mNqkcxzKnEYl62n65V7Z4=";
+    sha256 = "sha256-WriHi68Y6hAsrwE+74JtVlAKUR9lfTczj6UK9h2FOGM=";
     fetchSubmodules = true;
   };
 
@@ -70,31 +77,49 @@ stdenv.mkDerivation rec {
     libsepol
     libsysprof-capture
     libthai
+    libuuid
     libxkbcommon
     lv2
     pcre
+    pcre2
     python3
     sqlite
-    gcc-unwrapped
+    webkitgtk
+    gcc11
   ];
 
-  cmakeFlags = [
-    "-DCMAKE_AR=${gcc-unwrapped}/bin/gcc-ar"
-    "-DCMAKE_RANLIB=${gcc-unwrapped}/bin/gcc-ranlib"
-    "-DCMAKE_NM=${gcc-unwrapped}/bin/gcc-nm"
-  ];
+  #cmakeFlags = [
+  #  "-DCMAKE_AR=${gcc11}/bin/gcc-ar"
+  #  "-DCMAKE_RANLIB=${gcc11}/bin/gcc-ranlib"
+  #  "-DCMAKE_NM=${gcc11}/bin/gcc-nm"
+  #];
 
-  postPatch = "cd Plugin";
+  cmakeBuildType = "Release";
+
+  postPatch = ''
+    cd Plugin
+    sed -i -e '/juce::juce_recommended_lto_flags/d' modules/CMakeLists.txt 
+  '';
 
   installPhase = ''
     mkdir -p $out/lib/lv2 $out/lib/vst3 $out/bin $out/share/doc/CHOWTapeModel/
-    cd CHOWTapeModel_artefacts/Release
+    cd CHOWTapeModel_artefacts/${cmakeBuildType}
     cp libCHOWTapeModel_SharedCode.a  $out/lib
     cp -r LV2/CHOWTapeModel.lv2 $out/lib/lv2
     cp -r VST3/CHOWTapeModel.vst3 $out/lib/vst3
     cp Standalone/CHOWTapeModel  $out/bin
     cp ../../../../Manual/ChowTapeManual.pdf $out/share/doc/CHOWTapeModel/
   '';
+
+  # JUCE dlopens these, make sure they are in rpath
+  # Otherwise, segfault will happen
+  NIX_LDFLAGS = (toString [
+    "-lX11"
+    "-lXext"
+    "-lXcursor"
+    "-lXinerama"
+    "-lXrandr"
+  ]);
 
   meta = with lib; {
     homepage = "https://github.com/jatinchowdhury18/AnalogTapeModel";
