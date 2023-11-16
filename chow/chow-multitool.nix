@@ -1,81 +1,113 @@
-{ stdenv
-, fetchurl
-, alsa-lib
-, dpkg
+{ alsa-lib
+, cmake
+, curl
+, libepoxy
+, fetchFromGitHub
 , freetype
+, gcc11
+, gtk3
 , lib
+, libXcursor
+, libXdmcp
+, libXext
+, libXinerama
+, libXrandr
+, libXtst
+, libdatrie
+, libjack2
+, libpsl
+, libselinux
+, libsepol
+, libsysprof-capture
+, libthai
+, libuuid
+, libxkbcommon
+, pcre
+, pcre2
+, pkg-config
+, sqlite
+, webkitgtk
+, stdenv
 }:
-
 stdenv.mkDerivation rec {
-  pname = "ChowMultitool";
+  pname = "ChowMultiTool";
   version = "1.0.0";
 
-  src = fetchurl {
-    url = "https://github.com/Chowdhury-DSP/ChowMultiTool/releases/download/v1.0.0/ChowMultiTool-Linux-x64-${version}.deb";
-    sha256 = "sha256-6dYEuoxcQ9V2G5xz6wUwrBMyJVkc7o48IsWEBrM9zTA=";
+  src = fetchFromGitHub {
+    owner = "Chowdhury-DSP";
+    repo = "ChowMultiTool";
+    rev = "v${version}";
+    sha256 = "sha256-IRnuACsTjolnRh/FOZIdBuAjGdQC2rilLPJgjGZP+XY=";
+    fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ dpkg ];
-
-  unpackCmd = ''
-    mkdir -p root
-    dpkg-deb -x $curSrc root
-  '';
-
-  dontBuild = true;
-  dontWrapGApps = true; # we only want $gappsWrapperArgs here
+  nativeBuildInputs = [ pkg-config cmake ];
 
   buildInputs = [
     alsa-lib
-  #   at-spi2-atk
-  #   cairo
+    curl
+    libepoxy
     freetype
-  #   gdk-pixbuf
-  #   glib
-  #   gnome2.pango
-  #   gtk3
-  #   harfbuzz
-  #   libglvnd
-  #   libjack2
-  #   # libjpeg8 is required for converting jpeg's to colour palettes
-  #   libjpeg
-  #   libxcb
-  #   libXcursor
-  #   libX11
-  #   libXtst
-  #   libxkbcommon
-  #   pipewire
-  #   pulseaudio
-    stdenv.cc.cc.lib
-  #   xcbutil
-  #   xcbutilwm
-  #   zlib
+    gtk3
+    libXcursor
+    libXdmcp
+    libXext
+    libXinerama
+    libXrandr
+    libXtst
+    libdatrie
+    libjack2
+    libpsl
+    libselinux
+    libsepol
+    libsysprof-capture
+    libthai
+    libuuid
+    libxkbcommon
+    pcre
+    pcre2
+    sqlite
+    webkitgtk
   ];
 
+  cmakeFlags = [
+    "-DCMAKE_AR=${stdenv.cc.cc}/bin/gcc-ar"
+    "-DCMAKE_RANLIB=${stdenv.cc.cc}/bin/gcc-ranlib"
+    "-DCMAKE_NM=${stdenv.cc.cc}/bin/gcc-nm"
+  ];
+
+  cmakeBuildType = "Release";
+
+  # LTO does not work for this plugin, disable it
+  postPatch = ''
+    sed -i -e '/juce::juce_recommended_lto_flags/d' modules/CMakeLists.txt
+  '';
+
   installPhase = ''
-    runHook preInstall
-
-    mkdir -p $out/bin $out/lib/lv2 $out/lib/clap $out/lib/vst3
-
-    cp usr/bin/ChowMultiTool $out/bin
-    cp usr/lib/clap/ChowMultiTool.clap $out/lib/clap
-    cp -r usr/lib/lv2/ChowMultiTool.lv2 $out/lib/lv2
-    cp -r usr/lib/vst3/ChowMultiTool.vst3 $out/lib/vst3
-
-    runHook postInstall
+    mkdir -p $out/lib/lv2 $out/lib/vst3 $out/bin $out/lib/clap
+    cd ChowMultiTool_artefacts/${cmakeBuildType}
+    cp -r LV2/ChowMultiTool.lv2 $out/lib/lv2
+    cp -r VST3/ChowMultiTool.vst3 $out/lib/vst3
+    cp -r CLAP/ChowMultiTool.clap $out/lib/clap
+    cp Standalone/ChowMultiTool  $out/bin
   '';
 
-  postFixup =
-  let
-    libraryPath = "${lib.strings.makeLibraryPath buildInputs}";
-  in
-  ''
-    # patchelf fails to set rpath on BitwigStudioEngine, so we use
-    # the LD_LIBRARY_PATH way
+  # JUCE dlopens these, make sure they are in rpath
+  # Otherwise, segfault will happen
+  NIX_LDFLAGS = (toString [
+    "-lX11"
+    "-lXext"
+    "-lXcursor"
+    "-lXinerama"
+    "-lXrandr"
+  ]);
 
-    find $out | while IFS= read -r f; do
-      patchelf --set-interpreter "${stdenv.cc.bintools.dynamicLinker}" $f || true
-      patchelf --set-rpath "${libraryPath}" $f || true
-    done
-  '';
+  meta = with lib; {
+    homepage = "https://github.com/Chowdhury-DSP/ChowMultiTool";
+    description =
+      "Multi-Tool Audio Plugin";
+    license = with licenses; [ gpl3Only ];
+    maintainers = with maintainers; [ polygon ];
+    platforms = platforms.linux;
+  };
 }

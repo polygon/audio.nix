@@ -69,10 +69,12 @@ stdenv.mkDerivation (finalAttrs: {
     "-lXss"
   ]);
 
-  # Remove LTO options, does not work just like that
-  postPatch = ''
-    sed -i -e '/juce::juce_recommended_lto_flags/d' CMakeLists.txt
-  '';
+  # Needed for LTO to work, currently unsure as to why
+  cmakeFlags = [
+    "-DCMAKE_AR=${stdenv.cc.cc}/bin/gcc-ar"
+    "-DCMAKE_RANLIB=${stdenv.cc.cc}/bin/gcc-ranlib"
+    "-DCMAKE_NM=${stdenv.cc.cc}/bin/gcc-nm"
+  ];
 
   cmakeBuildType = buildType;
 

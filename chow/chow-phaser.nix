@@ -7,7 +7,6 @@
 , fetchFromGitHub
 , freeglut
 , freetype
-, gcc-unwrapped
 , gtk3
 , lib
 , libGL
@@ -73,13 +72,12 @@ stdenv.mkDerivation rec {
     pcre
     python3
     sqlite
-    gcc-unwrapped
   ];
 
   cmakeFlags = [
-    "-DCMAKE_AR=${gcc-unwrapped}/bin/gcc-ar"
-    "-DCMAKE_RANLIB=${gcc-unwrapped}/bin/gcc-ranlib"
-    "-DCMAKE_NM=${gcc-unwrapped}/bin/gcc-nm"
+    "-DCMAKE_AR=${stdenv.cc.cc}/bin/gcc-ar"
+    "-DCMAKE_RANLIB=${stdenv.cc.cc}/bin/gcc-ranlib"
+    "-DCMAKE_NM=${stdenv.cc.cc}/bin/gcc-nm"
   ];
 
   installPhase = ''
@@ -93,6 +91,16 @@ stdenv.mkDerivation rec {
     cp -r VST3/ChowPhaserStereo.vst3 $out/lib/vst3
     cp Standalone/ChowPhaserStereo  $out/bin
   '';
+
+  # JUCE dlopens these, make sure they are in rpath
+  # Otherwise, segfault will happen
+  NIX_LDFLAGS = (toString [
+    "-lX11"
+    "-lXext"
+    "-lXcursor"
+    "-lXinerama"
+    "-lXrandr"
+  ]);
 
   meta = with lib; {
     homepage = "https://github.com/jatinchowdhury18/ChowPhaser";

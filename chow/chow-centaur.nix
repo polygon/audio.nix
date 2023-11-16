@@ -14,7 +14,6 @@
 , alsa-lib
 , libjack2
 , lv2
-, gcc-unwrapped
 }:
 
 stdenv.mkDerivation rec {
@@ -45,17 +44,28 @@ stdenv.mkDerivation rec {
   ];
 
   cmakeFlags = [
-    "-DCMAKE_AR=${gcc-unwrapped}/bin/gcc-ar"
-    "-DCMAKE_RANLIB=${gcc-unwrapped}/bin/gcc-ranlib"
-    "-DCMAKE_NM=${gcc-unwrapped}/bin/gcc-nm"
+    "-DCMAKE_AR=${stdenv.cc.cc}/bin/gcc-ar"
+    "-DCMAKE_RANLIB=${stdenv.cc.cc}/bin/gcc-ranlib"
+    "-DCMAKE_NM=${stdenv.cc.cc}/bin/gcc-nm"
   ];
 
   installPhase = ''
-    mkdir -p $out/lib/lv2 $out/lib/vst3
+    mkdir -p $out/lib/lv2 $out/lib/vst3 $out/bin
     cd ChowCentaur/ChowCentaur_artefacts/Release
     cp -r LV2/ChowCentaur.lv2 $out/lib/lv2
     cp -r VST3/ChowCentaur.vst3 $out/lib/vst3
+    cp -r Standalone/ChowCentaur $out/bin
   '';
+
+  # JUCE dlopens these, make sure they are in rpath
+  # Otherwise, segfault will happen
+  NIX_LDFLAGS = (toString [
+    "-lX11"
+    "-lXext"
+    "-lXcursor"
+    "-lXinerama"
+    "-lXrandr"
+  ]);
 
   meta = with lib; {
     description =

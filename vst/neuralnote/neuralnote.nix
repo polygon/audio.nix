@@ -56,7 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
     xorg.libXrender
     xorg.libXScrnSaver
   ];
-  
+
   # JUCE dlopens these, make sure they are in rpath
   # Otherwise, segfault will happen
   NIX_LDFLAGS = (toString [
@@ -67,9 +67,14 @@ stdenv.mkDerivation (finalAttrs: {
     "-lXrandr"
   ]);
 
-  # Remove LTO options, does not work just like that
+  # Needed for LTO to work, currently unsure as to why
+  cmakeFlags = [
+    "-DCMAKE_AR=${stdenv.cc.cc}/bin/gcc-ar"
+    "-DCMAKE_RANLIB=${stdenv.cc.cc}/bin/gcc-ranlib"
+    "-DCMAKE_NM=${stdenv.cc.cc}/bin/gcc-nm"
+  ];
+
   postPatch = ''
-    sed -i -e '/juce::juce_recommended_lto_flags/d' CMakeLists.txt
     sed -i -e 's/if (canDrop)/if (1)/' ThirdParty/JUCE/modules/juce_gui_basics/native/x11/juce_linux_X11_DragAndDrop.cpp
     cd ThirdParty
     rm -rf onnxruntime || true
@@ -82,21 +87,22 @@ stdenv.mkDerivation (finalAttrs: {
 
   cmakeBuildType = buildType;
 
-  installPhase = let
-    vst3path = "${placeholder "out"}/lib/vst3";
-    binpath = "${placeholder "out"}/bin";
-  in
-  ''
-    runHook preInstall
+  installPhase =
+    let
+      vst3path = "${placeholder "out"}/lib/vst3";
+      binpath = "${placeholder "out"}/bin";
+    in
+    ''
+      runHook preInstall
 
-    mkdir -p ${vst3path}
-    mkdir -p ${binpath}
+      mkdir -p ${vst3path}
+      mkdir -p ${binpath}
 
-    cp -R NeuralNote_artefacts/${buildType}/VST3/* ${vst3path}
-    cp -R NeuralNote_artefacts/${buildType}/Standalone/* ${binpath}
+      cp -R NeuralNote_artefacts/${buildType}/VST3/* ${vst3path}
+      cp -R NeuralNote_artefacts/${buildType}/Standalone/* ${binpath}
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
   meta = with lib; {
     description = "NeuralNote";

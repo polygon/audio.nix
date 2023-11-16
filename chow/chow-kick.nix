@@ -100,6 +100,16 @@ stdenv.mkDerivation rec {
     cp src/headless/ChowKick_headless_artefacts/Release/ChowKick_headless $out/bin
   '';
 
+  # JUCE dlopens these, make sure they are in rpath
+  # Otherwise, segfault will happen
+  NIX_LDFLAGS = (toString [
+    "-lX11"
+    "-lXext"
+    "-lXcursor"
+    "-lXinerama"
+    "-lXrandr"
+  ]);
+
   meta = with lib; {
     homepage = "https://github.com/Chowdhury-DSP/ChowKick";
     description = "Kick synthesizer based on old-school drum machine circuits";

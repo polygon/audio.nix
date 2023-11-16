@@ -88,17 +88,16 @@ stdenv.mkDerivation rec {
     gcc11
   ];
 
-  #cmakeFlags = [
-  #  "-DCMAKE_AR=${gcc11}/bin/gcc-ar"
-  #  "-DCMAKE_RANLIB=${gcc11}/bin/gcc-ranlib"
-  #  "-DCMAKE_NM=${gcc11}/bin/gcc-nm"
-  #];
+  cmakeFlags = [
+    "-DCMAKE_AR=${stdenv.cc.cc}/bin/gcc-ar"
+    "-DCMAKE_RANLIB=${stdenv.cc.cc}/bin/gcc-ranlib"
+    "-DCMAKE_NM=${stdenv.cc.cc}/bin/gcc-nm"
+  ];
 
   cmakeBuildType = "Release";
 
   postPatch = ''
     cd Plugin
-    sed -i -e '/juce::juce_recommended_lto_flags/d' modules/CMakeLists.txt 
   '';
 
   installPhase = ''
