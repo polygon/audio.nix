@@ -45,7 +45,8 @@
       bitwig-studio5-1-beta5 = pkgs.callPackage ./bitwig/bitwig-studio-5.1-beta5.nix { };
       bitwig-studio5-1-beta6 = pkgs.callPackage ./bitwig/bitwig-studio-5.1-beta6.nix { };
       bitwig-studio5-1-beta7 = pkgs.callPackage ./bitwig/bitwig-studio-5.1-beta7.nix { };
-      bitwig-studio5-latest = self.packages.${system}.bitwig-studio5-1-beta7;
+      bitwig-studio5-1-beta8 = pkgs.callPackage ./bitwig/bitwig-studio-5.1-beta8.nix { };
+      bitwig-studio5-latest = self.packages.${system}.bitwig-studio5-1-beta8;
       bitwig-studio5-stable-latest = self.packages.${system}.bitwig-studio5;
 
       # Chow plugins
