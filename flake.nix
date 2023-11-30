@@ -2,7 +2,7 @@
   description = "Audio Nix packages and modules";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
   };
 
 
