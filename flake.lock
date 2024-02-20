@@ -1,6 +1,40 @@
 {
   "nodes": {
+    "nix-buildproxy": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1708446565,
+        "narHash": "sha256-5h+BTV8r8RB2cGytuUkkgoL4jZfdCNywoZG1X081FK0=",
+        "owner": "polygon",
+        "repo": "nix-buildproxy",
+        "rev": "3411d801ee46b0c66184aa4a5d42acf7eecdba1c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "polygon",
+        "repo": "nix-buildproxy",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
+      "locked": {
+        "lastModified": 1708118438,
+        "narHash": "sha256-kk9/0nuVgA220FcqH/D2xaN6uGyHp/zoxPNUmPCMmEE=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "5863c27340ba4de8f83e7e3c023b9599c3cb3c80",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
       "locked": {
         "lastModified": 1706826059,
         "narHash": "sha256-N69Oab+cbt3flLvYv8fYnEHlBsWwdKciNZHUbynVEOA=",
@@ -18,7 +52,8 @@
     },
     "root": {
       "inputs": {
-        "nixpkgs": "nixpkgs"
+        "nix-buildproxy": "nix-buildproxy",
+        "nixpkgs": "nixpkgs_2"
       }
     }
   },

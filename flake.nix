@@ -3,15 +3,17 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nix-buildproxy.url = "github:polygon/nix-buildproxy";
   };
 
 
-  outputs = { self, nixpkgs }:
+  outputs = { self, nixpkgs, nix-buildproxy }:
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
+      overlays = [ nix-buildproxy.overlays.default ];
     };
   in
   {
@@ -60,6 +62,7 @@
 
       libonnxruntime-neuralnote = pkgs.callPackage ./vst/neuralnote/libonnxruntime-neuralnote.nix { };
       neuralnote = pkgs.callPackage ./vst/neuralnote/neuralnote.nix { libonnxruntime-neuralnote = self.packages.${system}.libonnxruntime-neuralnote; };
+      grainbow = pkgs.callPackage ./vst/grainbow { };
     };
 
 
@@ -83,6 +86,7 @@
       neuralnote = self.packages.${system}.neuralnote;
       vital = self.packages.${system}.vital;
       amplocker = self.packages.${system}.amplocker;
+      grainbow = self.packages.${system}.grainbow;
     });
 
     # NixOS Container for testing
