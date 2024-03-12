@@ -7,6 +7,8 @@ Assorted audio packages for Nix(OS)/Linux.
 * Paulxstretch
 * Atlas 2
 * Audio Assault AmpLocker
+* A number of CHOW plugins
+* PAPU
 * Some other stuff
 
 Mostly things I use myself, provided as-is. Please see [here](#non-support) before opening tickets.
@@ -41,6 +43,12 @@ environment.systemPackages = with pkgs; [
 ```
 
 Don't mix stable and unstable within your audio environment (DAW + plugins) as it tends to just not work well. If plugins are not loaded, you can check with `ldd` if dependency and especially glibc-versions are the same.
+
+## Dev Support
+
+The `devShells.x86_64-linux.juce` output provides a devshell to jumpstart building JUCE based plugins in Nix. It contains the common dependencies and other options usually required for JUCE applications to build. `templates/juce-plugin.nix` can be used as a starting point for building a Nix package of a JUCE plugin. It is commented with the required changes that need to be made.
+
+It is recommended to first get a new plugin to build using the devshell and once that is done, create the actual package.
 
 ## (Non-)Support
 

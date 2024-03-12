@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
-    nix-buildproxy.url = "github:polygon/nix-buildproxy";
+    nix-buildproxy.url = "github:polygon/nix-buildproxy/v0.1.0";
   };
 
 
@@ -18,9 +18,6 @@
   in
   {
     packages.${system} = {
-      # Drumkits for DrumGizmo
-      shittyKit = pkgs.callPackage ./drumkits/shittykit.nix { };
-
       # Various VSTs
       amplocker = pkgs.callPackage ./vst/amplocker { };
       atlas2 = pkgs.callPackage ./vst/atlas2.nix { };
@@ -63,12 +60,8 @@
       libonnxruntime-neuralnote = pkgs.callPackage ./vst/neuralnote/libonnxruntime-neuralnote.nix { };
       neuralnote = pkgs.callPackage ./vst/neuralnote/neuralnote.nix { libonnxruntime-neuralnote = self.packages.${system}.libonnxruntime-neuralnote; };
       grainbow = pkgs.callPackage ./vst/grainbow { };
+      papu = pkgs.callPackage ./vst/papu.nix { };
     };
-
-
-    nixosModules.default = import ./modules self;
-
-    hmModule = import ./hm { inherit self; };     
 
     overlays.default = (final: prev: {
       atlas2 = self.packages.${system}.atlas2;
@@ -87,19 +80,9 @@
       vital = self.packages.${system}.vital;
       amplocker = self.packages.${system}.amplocker;
       grainbow = self.packages.${system}.grainbow;
+      papu = self.packages.${system}.papu;
     });
 
-    # NixOS Container for testing
-    nixosConfigurations.devcontainer = nixpkgs.lib.nixosSystem {
-        inherit system;
-        modules = [
-          {
-            boot.isContainer = true;
-            system.stateVersion = "23.05";
-          }
-          self.nixosModules.default
-        ];
-      };
-
+    devShells.${system}.juce = pkgs.callPackage ./devshell/juce.nix { };
   };
 }

@@ -5,15 +5,16 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1708446565,
-        "narHash": "sha256-5h+BTV8r8RB2cGytuUkkgoL4jZfdCNywoZG1X081FK0=",
+        "lastModified": 1708455753,
+        "narHash": "sha256-qP79WfPiTl92KrZkmvacba9Xas4WwSFln5DjkP2Q/Lg=",
         "owner": "polygon",
         "repo": "nix-buildproxy",
-        "rev": "3411d801ee46b0c66184aa4a5d42acf7eecdba1c",
+        "rev": "77d486cb4b0458cb4c4a296c3140f7a6c36ab3e6",
         "type": "github"
       },
       "original": {
         "owner": "polygon",
+        "ref": "v0.1.0",
         "repo": "nix-buildproxy",
         "type": "github"
       }
