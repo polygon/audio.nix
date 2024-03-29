@@ -37,6 +37,7 @@ mkShell {
     gtk3
     jack2
     xorg.libX11
+    xorg.libX11.dev
     xorg.libXext
     xorg.libXinerama
     xorg.xrandr

@@ -32,11 +32,11 @@
 
 stdenv.mkDerivation rec {
   pname = "bitwig-studio";
-  version = "5.1.6";
+  version = "5.1.7";
 
   src = fetchurl {
     url = "https://downloads.bitwig.com/stable/${version}/${pname}-${version}.deb";
-    sha256 = "sha256-U1Qp7/7kAr1IEcv256I2J/sb5MYxfR20Pi5N8WaVh2U=";
+    sha256 = "sha256-JJ2GqrKpVtbI+sJRh19IeTUUO4CVKV2DNDFxNFhmd9g=";
   };
 
   nativeBuildInputs = [ dpkg makeWrapper wrapGAppsHook ];

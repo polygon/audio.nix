@@ -21,10 +21,13 @@ You can run standalone versions of most Bitwig and most plugins:
 * `nix run github:polygon/audio.nix#paulxstretch`
 * `nix run github:polygon/audio.nix#bitwig-studio5-latest`
 
-To use the plugins from within Bitwig, you want to install them into your environment. Add the package to your flake inputs:
+To use the plugins from within Bitwig, you want to install them into your environment. Add the package to your flake inputs. In case you want to mix plugins and tools from this Flake and regular Nixpkgs, you want to make sure that the versions match up to minimize chances of incompatibilities. I recommend taking `nixpkgs` from your system flake. Be mindful of this when mixing stable and unstable as well.
 
 ```
-audio.url = "github:polygon/audio.nix";
+audio = {
+    url = "github:polygon/audio.nix";
+    inputs.nixpkgs.follows = "nixpkgs";
+};
 ```
 
 Then add the overlay to your system configuration.
