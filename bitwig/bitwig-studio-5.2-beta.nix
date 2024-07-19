@@ -1,43 +1,17 @@
-{ stdenv
-, fetchurl
-, alsa-lib
-, atk
-, cairo
-, dpkg
-, ffmpeg
-, freetype
-, gdk-pixbuf
-, glib
-, gtk3
-, harfbuzz
-, lib
-, libglvnd
-, libjack2
-, libjpeg
-, libxkbcommon
-, makeWrapper
-, pango
-, pipewire
-, pulseaudio
-, wrapGAppsHook
-, xdg-utils
-, xorg
-, zlib
+{ stdenv, fetchurl, alsa-lib, atk, cairo, dpkg, ffmpeg, freetype, gdk-pixbuf
+, glib, gtk3, harfbuzz, lib, libglvnd, libjack2, libjpeg, libxkbcommon
+, makeWrapper, pango, pipewire, pulseaudio, wrapGAppsHook, xdg-utils, xorg, zlib
 
-, webkitgtk
-, curl
-, fftwFloat
-, jack2
-, vulkan-loader
-}:
+, webkitgtk, curl, fftwFloat, jack2, vulkan-loader }:
 
 stdenv.mkDerivation rec {
   pname = "bitwig-studio";
-  version = "5.2-beta-10";
+  version = "5.2-beta-11";
 
   src = fetchurl {
-    url = "https://downloads-secure.bitwig.com/5.2%20Beta%207/bitwig-studio-5.2-beta-10.deb?source_url=/dl/Bitwig%20Studio/5.2%20Beta%2010/installer_linux/";
-    sha256 = "sha256-GLSs1xoeZP7u+xGRUsQoOs8U0QfJTU1WPyw1i9Waevs=";
+    url =
+      "https://downloads-secure.bitwig.com/5.2%20Beta%2012/bitwig-studio-5.2-beta-12.deb?source_url=/dl/Bitwig%20Studio/5.2%20Beta%2012/installer_linux/";
+    sha256 = "sha256-3ywyBudR0lPvEntStb2pA2n/qZoVRPGZGRg6z3sWXOA=";
   };
 
   nativeBuildInputs = [ dpkg makeWrapper wrapGAppsHook ];
