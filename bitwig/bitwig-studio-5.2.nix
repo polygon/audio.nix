@@ -1,14 +1,13 @@
 { stdenv
 , fetchurl
 , alsa-lib
-, at-spi2-atk
+, atk
 , cairo
 , dpkg
 , ffmpeg
 , freetype
 , gdk-pixbuf
 , glib
-, gnome2
 , gtk3
 , harfbuzz
 , lib
@@ -17,21 +16,28 @@
 , libjpeg
 , libxkbcommon
 , makeWrapper
+, pango
 , pipewire
 , pulseaudio
 , wrapGAppsHook
 , xdg-utils
 , xorg
 , zlib
+
+, webkitgtk
+, curl
+, fftwFloat
+, jack2
+, vulkan-loader
 }:
 
 stdenv.mkDerivation rec {
   pname = "bitwig-studio";
-  version = "5-beta12";
+  version = "5.2";
 
   src = fetchurl {
-    url = "https://downloads.bitwig.com/5.0%20Beta%2012/bitwig-studio-5.0-beta-12.deb";
-    sha256 = "sha256-h5AGEoykq6fwI3TpyTUzwqurojkW3/dZDvhPUOgfMXE=";
+    url = "https://www.bitwig.com/dl/Bitwig%20Studio/${version}/installer_linux/";
+    sha256 = "sha256-8QoEuO3ZGoHUQyTIget8R1+CPFw/EATaJSv7u+Tj0jI=";
   };
 
   nativeBuildInputs = [ dpkg makeWrapper wrapGAppsHook ];
@@ -46,12 +52,11 @@ stdenv.mkDerivation rec {
 
   buildInputs = with xorg; [
     alsa-lib
-    at-spi2-atk
+    atk
     cairo
     freetype
     gdk-pixbuf
     glib
-    gnome2.pango
     gtk3
     harfbuzz
     libglvnd
@@ -63,9 +68,11 @@ stdenv.mkDerivation rec {
     libX11
     libXtst
     libxkbcommon
+    pango
     pipewire
     pulseaudio
     stdenv.cc.cc.lib
+    vulkan-loader
     xcbutil
     xcbutilwm
     zlib

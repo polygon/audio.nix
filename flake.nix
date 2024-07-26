@@ -27,29 +27,12 @@
 
       # Bitwig
       bitwig-studio4 = pkgs.callPackage ./bitwig/bitwig-studio4.nix { };
-      bitwig-studio5-beta3 = pkgs.callPackage ./bitwig/bitwig-studio5-beta3.nix { };
-      bitwig-studio5-beta5 = pkgs.callPackage ./bitwig/bitwig-studio5-beta5.nix { };
-      bitwig-studio5-beta6 = pkgs.callPackage ./bitwig/bitwig-studio5-beta6.nix { };
-      bitwig-studio5-beta8 = pkgs.callPackage ./bitwig/bitwig-studio5-beta8.nix { };
-      bitwig-studio5-beta9 = pkgs.callPackage ./bitwig/bitwig-studio5-beta9.nix { };
-      bitwig-studio5-beta10 = pkgs.callPackage ./bitwig/bitwig-studio5-beta10.nix { };
-      bitwig-studio5-beta11 = pkgs.callPackage ./bitwig/bitwig-studio5-beta11.nix { };
-      bitwig-studio5-beta12 = pkgs.callPackage ./bitwig/bitwig-studio5-beta12.nix { };
-      bitwig-studio5-beta13 = pkgs.callPackage ./bitwig/bitwig-studio5-beta13.nix { };
       bitwig-studio5 = pkgs.callPackage ./bitwig/bitwig-studio-5.0.nix { };
-      bitwig-studio5-1-beta1 = pkgs.callPackage ./bitwig/bitwig-studio-5.1-beta1.nix { };
-      bitwig-studio5-1-beta2 = pkgs.callPackage ./bitwig/bitwig-studio-5.1-beta2.nix { };
-      bitwig-studio5-1-beta3 = pkgs.callPackage ./bitwig/bitwig-studio-5.1-beta3.nix { };
-      bitwig-studio5-1-beta4 = pkgs.callPackage ./bitwig/bitwig-studio-5.1-beta4.nix { };
-      bitwig-studio5-1-beta5 = pkgs.callPackage ./bitwig/bitwig-studio-5.1-beta5.nix { };
-      bitwig-studio5-1-beta6 = pkgs.callPackage ./bitwig/bitwig-studio-5.1-beta6.nix { };
-      bitwig-studio5-1-beta7 = pkgs.callPackage ./bitwig/bitwig-studio-5.1-beta7.nix { };
-      bitwig-studio5-1-beta8 = pkgs.callPackage ./bitwig/bitwig-studio-5.1-beta8.nix { };
-      bitwig-studio5-1-beta9 = pkgs.callPackage ./bitwig/bitwig-studio-5.1-beta9.nix { };
       bitwig-studio5-1 = pkgs.callPackage ./bitwig/bitwig-studio-5.1.nix { };
+      bitwig-studio5-2 = pkgs.callPackage ./bitwig/bitwig-studio-5.2.nix { };
       bitwig-studio5-2-beta = pkgs.callPackage ./bitwig/bitwig-studio-5.2-beta.nix { };
-      bitwig-studio5-latest = self.packages.${system}.bitwig-studio5-2-beta;
-      bitwig-studio5-stable-latest = self.packages.${system}.bitwig-studio5-1;
+      bitwig-studio5-latest = self.packages.${system}.bitwig-studio5-2;
+      bitwig-studio5-stable-latest = self.packages.${system}.bitwig-studio5-2;
 
       # Chow plugins
       chow-centaur = pkgs.callPackage ./chow/chow-centaur.nix { };  
