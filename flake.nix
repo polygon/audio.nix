@@ -67,6 +67,9 @@
             username = "audio";
             plugins = [ self.packages.${system}.valhalla ];
           };
+        mount_prefix = pkgs.callPackage ./yabridgemgr/plumbing/mount_prefix.nix {
+          wineprefix = self.packages.${system}.build_prefix;
+        };
       };
 
       overlays.default = (final: prev: {

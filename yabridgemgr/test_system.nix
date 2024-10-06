@@ -1,4 +1,4 @@
-{ nixpkgs, home-manager, self, ... }:
+{ nixpkgs, home-manager, self, system, ... }:
 nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
@@ -40,4 +40,4 @@ nixpkgs.lib.nixosSystem {
             });
           }
         ];
-      };
+      }
