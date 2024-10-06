@@ -59,6 +59,14 @@
         };
         grainbow = pkgs.callPackage ./vst/grainbow { };
         papu = pkgs.callPackage ./vst/papu.nix { };
+
+        # yabridgemgr testcode
+        valhalla = pkgs.callPackage ./yabridgemgr/valhalla_supermassive.nix { };
+        build_prefix =
+          pkgs.callPackage ./yabridgemgr/plumbing/build_prefix.nix {
+            username = "audio";
+            plugins = [ self.packages.${system}.valhalla ];
+          };
       };
 
       overlays.default = (final: prev: {
@@ -83,5 +91,14 @@
       });
 
       devShells.${system}.juce = pkgs.callPackage ./devshell/juce.nix { };
+      templates.juce = {
+        path = ./templates/juce-flake;
+        description = "DevShell starter for JUCE projects";
+      };
+
+      nixosConfigurations.yabridgemgr_test =
+        (import ./yabridgemgr/test_system.nix) {
+          inherit nixpkgs system home-manager self;
+        };
     };
 }
