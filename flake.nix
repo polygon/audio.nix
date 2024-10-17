@@ -3,7 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
-    nix-buildproxy.url = "github:polygon/nix-buildproxy/v0.1.0";
+    nix-buildproxy = {
+      url = "github:polygon/nix-buildproxy/v0.1.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
 
