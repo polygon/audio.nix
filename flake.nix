@@ -60,16 +60,10 @@
         grainbow = pkgs.callPackage ./vst/grainbow { };
         papu = pkgs.callPackage ./vst/papu.nix { };
 
-        # yabridgemgr testcode
-        valhalla = pkgs.callPackage ./yabridgemgr/valhalla_supermassive.nix { };
-        build_prefix =
-          pkgs.callPackage ./yabridgemgr/plumbing/build_prefix.nix {
-            username = "audio";
-            plugins = [ self.packages.${system}.valhalla ];
-          };
-        mount_prefix = pkgs.callPackage ./yabridgemgr/plumbing/mount_prefix.nix {
-          wineprefix = self.packages.${system}.build_prefix;
-        };
+        # yabridgemgr plugins
+        wine-valhalla =
+          pkgs.callPackage ./yabridgemgr/plugins/valhalla_supermassive.nix { };
+
       };
 
       overlays.default = (final: prev: {
@@ -103,5 +97,8 @@
         (import ./yabridgemgr/test_system.nix) {
           inherit nixpkgs system home-manager self;
         };
+
+      nixosModules.yabridgemgr =
+        ((import ./yabridgemgr/module.nix) { inherit self system; });
     };
 }

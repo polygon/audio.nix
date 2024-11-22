@@ -7,9 +7,12 @@ writeShellScriptBin "mount_prefix" ''
   fi
 
   echo "Creating tmpfir" >&2
-  # TMPDIR=$(${mktemp}/bin/mktemp --directory)
-  TMPDIR=$RUNTIME_DIRECTORY
-  echo "$TMPDIR" >&2
+  #TMPDIR=$(${mktemp}/bin/mktemp --directory)
+  TMPDIR="$HOME/yabridgemgr"
+  echo "tmpdir: $TMPDIR" >&2
+  echo "destination: $1" >&2
+  env
+  pwd
   ${coreutils}/bin/mkdir $TMPDIR/squash
   ${coreutils}/bin/mkdir $TMPDIR/upper
   ${coreutils}/bin/mkdir $TMPDIR/work
