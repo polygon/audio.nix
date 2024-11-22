@@ -6,12 +6,12 @@
 
 stdenv.mkDerivation rec {
   pname = "bitwig-studio";
-  version = "5.2-beta-11";
+  version = "5.3-beta-1";
 
   src = fetchurl {
     url =
-      "https://downloads-secure.bitwig.com/5.2%20Beta%2012/bitwig-studio-5.2-beta-12.deb?source_url=/dl/Bitwig%20Studio/5.2%20Beta%2012/installer_linux/";
-    sha256 = "sha256-3ywyBudR0lPvEntStb2pA2n/qZoVRPGZGRg6z3sWXOA=";
+      "https://downloads-secure.bitwig.com/5.3%20Beta%201/bitwig-studio-5.3-beta-1.deb?source_url=/dl/Bitwig%20Studio/5.3%20Beta%201/installer_linux/";
+    sha256 = "sha256-0hxhPrcQduCNct2CzcGXnHp4Sv3t9cgROdjijBU7eFA=";
   };
 
   nativeBuildInputs = [ dpkg makeWrapper wrapGAppsHook ];
