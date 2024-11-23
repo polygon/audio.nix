@@ -63,7 +63,18 @@
         # yabridgemgr plugins
         wine-valhalla =
           pkgs.callPackage ./yabridgemgr/plugins/valhalla_supermassive.nix { };
+        wine-voxengo-span =
+          pkgs.callPackage ./yabridgemgr/plugins/voxengo_span.nix { };
 
+        # Mainly used for dev, squashfs image in results
+        build_prefix =
+          pkgs.callPackage ./yabridgemgr/plumbing/build_prefix.nix {
+            username = "audio";
+            plugins = [
+              self.packages.${system}.wine-valhalla
+              self.packages.${system}.wine-voxengo-span
+            ];
+          };
       };
 
       overlays.default = (final: prev: {

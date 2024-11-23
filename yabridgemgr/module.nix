@@ -15,7 +15,10 @@ in {
     };
     plugins = mkOption {
       type = types.listOf types.package;
-      default = [ self.packages.${system}.wine-valhalla ];
+      default = [
+        self.packages.${system}.wine-valhalla
+        self.packages.${system}.wine-voxengo-span
+      ];
       description = "Plugin packages to install";
     };
   };
