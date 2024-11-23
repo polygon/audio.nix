@@ -48,13 +48,15 @@ in {
       mount_prefix = pkgs.callPackage ./plumbing/mount_prefix.nix {
         wineprefix = build_prefix;
       };
+      umount_prefix = pkgs.callPackage ./plumbing/umount_prefix.nix { };
     in {
       description = "Mount yabridge prefix";
       after = [ "systemd-tmpfiles-setup.service" ];
       wantedBy = [ "default.target" ];
       serviceConfig = {
         RuntimeDirectory = "yabridgemgr";
-        ExecStart = "${mount_prefix}/bin/mount_prefix yabridgemgr";
+        ExecStart = "${mount_prefix}/bin/mount_prefix";
+        ExecStop = "${umount_prefix}/bin/umount_prefix";
         RemainAfterExit = "yes";
       };
       unitConfig = { ConditionUser = "${cfg.user}"; };
