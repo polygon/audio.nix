@@ -23,10 +23,11 @@ in {
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [ yabridge yabridgectl ];
     systemd.user.tmpfiles.users."${cfg.user}".rules = let
+      userHome = config.users.users.${cfg.user}.home;
       ybcfg = pkgs.writeText "yabridgecfg" ''
         plugin_dirs = [
-          'yabridgemgr/drive_c/Program Files/Common Files/VST2',
-          'yabridgemgr/drive_c/Program Files/Common Files/VST3',
+          '${userHome}/yabridgemgr/drive_c/Program Files/Common Files/VST2',
+          '${userHome}/yabridgemgr/drive_c/Program Files/Common Files/VST3',
         ]
         vst2_location = 'centralized'
         no_verify = false
