@@ -20,6 +20,25 @@ in nixpkgs.lib.nixosSystem {
       i18n.defaultLocale = "en_US.UTF-8";
       console.keyMap = "de";
       security.sudo.wheelNeedsPassword = false;
+      nix = {
+        extraOptions = ''
+          experimental-features = nix-command flakes
+        '';
+      };
+      hardware.pulseaudio.enable = true;
+      hardware.pulseaudio.support32Bit = true;
+    }
+    {
+      nixpkgs.config.pulseaudio = true;
+      services.xserver = {
+        enable = true;
+        desktopManager = {
+          xterm.enable = false;
+          xfce.enable = true;
+        };
+      };
+      services.displayManager.defaultSession = "xfce";
+      environment.systemPackages = with pkgs; [ carla ];
     }
     self.nixosModules.yabridgemgr
     {
