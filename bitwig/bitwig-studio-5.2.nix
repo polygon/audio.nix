@@ -1,43 +1,17 @@
-{ stdenv
-, fetchurl
-, alsa-lib
-, atk
-, cairo
-, dpkg
-, ffmpeg
-, freetype
-, gdk-pixbuf
-, glib
-, gtk3
-, harfbuzz
-, lib
-, libglvnd
-, libjack2
-, libjpeg
-, libxkbcommon
-, makeWrapper
-, pango
-, pipewire
-, pulseaudio
-, wrapGAppsHook
-, xdg-utils
-, xorg
-, zlib
+{ stdenv, fetchurl, alsa-lib, atk, cairo, dpkg, ffmpeg, freetype, gdk-pixbuf
+, glib, gtk3, harfbuzz, lib, libglvnd, libjack2, libjpeg, libxkbcommon
+, makeWrapper, pango, pipewire, pulseaudio, wrapGAppsHook, xdg-utils, xorg, zlib
 
-, webkitgtk
-, curl
-, fftwFloat
-, jack2
-, vulkan-loader
-}:
+, webkitgtk, curl, fftwFloat, jack2, vulkan-loader }:
 
 stdenv.mkDerivation rec {
   pname = "bitwig-studio";
-  version = "5.2.5";
+  version = "5.2.7";
 
   src = fetchurl {
-    url = "https://www.bitwig.com/dl/Bitwig%20Studio/${version}/installer_linux/";
-    sha256 = "sha256-x6Uw6o+a3nArMm1Ev5ytGtLDGQ3r872WqlC022zT8Hk=";
+    url =
+      "https://www.bitwig.com/dl/Bitwig%20Studio/${version}/installer_linux/";
+    sha256 = "sha256-Tyi7qYhTQ5i6fRHhrmz4yHXSdicd4P4iuF9FRKRhkMI=";
   };
 
   nativeBuildInputs = [ dpkg makeWrapper wrapGAppsHook ];
