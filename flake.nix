@@ -105,9 +105,7 @@
       };
 
       nixosConfigurations.yabridgemgr_test =
-        (import ./yabridgemgr/test_system.nix) {
-          inherit nixpkgs system home-manager self;
-        };
+        (import ./yabridgemgr/test_system.nix) { inherit nixpkgs system self; };
 
       nixosModules.yabridgemgr =
         ((import ./yabridgemgr/module.nix) { inherit self system; });

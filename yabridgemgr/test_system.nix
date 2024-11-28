@@ -1,4 +1,4 @@
-{ nixpkgs, home-manager, self, system, ... }:
+{ nixpkgs, self, system, ... }:
 let pkgs = nixpkgs.legacyPackages.${system};
 in nixpkgs.lib.nixosSystem {
   inherit system;
