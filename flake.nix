@@ -2,7 +2,7 @@
   description = "Audio Nix packages and modules";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nix-buildproxy.url = "github:polygon/nix-buildproxy/v0.1.0";
   };
 
