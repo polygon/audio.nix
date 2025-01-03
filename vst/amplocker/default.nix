@@ -4,7 +4,7 @@
 , requireFile
 , unzip
 , autoPatchelfHook
-, alsaLib
+, alsa-lib
 , xorg
 , curlWithGnuTls
 , libGL
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
 
   preFixup = let
     libraryPath = lib.makeLibraryPath [
-      alsaLib
+      alsa-lib
       xorg.libX11
       stdenv.cc.cc.lib
       curlWithGnuTls

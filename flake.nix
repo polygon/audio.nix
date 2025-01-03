@@ -2,7 +2,7 @@
   description = "Audio Nix packages and modules";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nix-buildproxy.url = "github:polygon/nix-buildproxy/v0.1.0";
   };
 
@@ -59,6 +59,22 @@
         };
         grainbow = pkgs.callPackage ./vst/grainbow { };
         papu = pkgs.callPackage ./vst/papu.nix { };
+
+        # yabridgemgr plugins
+        wine-valhalla =
+          pkgs.callPackage ./yabridgemgr/plugins/valhalla_supermassive.nix { };
+        wine-voxengo-span =
+          pkgs.callPackage ./yabridgemgr/plugins/voxengo_span.nix { };
+
+        # Mainly used for dev, squashfs image in results
+        build_prefix =
+          pkgs.callPackage ./yabridgemgr/plumbing/build_prefix.nix {
+            username = "audio";
+            plugins = [
+              self.packages.${system}.wine-valhalla
+              self.packages.${system}.wine-voxengo-span
+            ];
+          };
       };
 
       overlays.default = (final: prev: {
@@ -83,5 +99,15 @@
       });
 
       devShells.${system}.juce = pkgs.callPackage ./devshell/juce.nix { };
+      templates.juce = {
+        path = ./templates/juce-flake;
+        description = "DevShell starter for JUCE projects";
+      };
+
+      nixosConfigurations.yabridgemgr_test =
+        (import ./yabridgemgr/test_system.nix) { inherit nixpkgs system self; };
+
+      nixosModules.yabridgemgr =
+        ((import ./yabridgemgr/module.nix) { inherit self system; });
     };
 }

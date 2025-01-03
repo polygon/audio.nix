@@ -19,7 +19,7 @@ stdenv.mkDerivation {
       chmod -R u+w $TMPDIR/VampTransforms
 
       echo "Starting Bitwig Studio in Bubblewrap Environment"
-      ${bubblewrap}/bin/bwrap --bind / / --bind $TMPDIR/VampTransforms ${bitwig-studio}/libexec/resources/VampTransforms ${bitwig-studio}/bin/bitwig-studio
+      ${bubblewrap}/bin/bwrap --dev-bind / / --bind $TMPDIR/VampTransforms ${bitwig-studio}/libexec/resources/VampTransforms ${bitwig-studio}/bin/bitwig-studio
 
       echo "Bitwig exited, removing temporary directory"
       rm -rf $TMPDIR
