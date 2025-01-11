@@ -18,6 +18,7 @@ in {
       default = [
         self.packages.${system}.wine-valhalla
         self.packages.${system}.wine-voxengo-span
+        self.packages.${system}.wine-midichordanalyzer
       ];
       description = "Plugin packages to install";
     };

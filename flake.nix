@@ -67,6 +67,8 @@
           pkgs.callPackage ./yabridgemgr/plugins/valhalla_supermassive.nix { };
         wine-voxengo-span =
           pkgs.callPackage ./yabridgemgr/plugins/voxengo_span.nix { };
+        wine-midichordanalyzer =
+          pkgs.callPackage ./yabridgemgr/plugins/piz_midichordanalyzer.nix { };
 
         # Mainly used for dev, squashfs image in results
         build_prefix =
@@ -75,6 +77,7 @@
             plugins = [
               self.packages.${system}.wine-valhalla
               self.packages.${system}.wine-voxengo-span
+              self.packages.${system}.wine-midichordanalyzer
             ];
           };
       };
