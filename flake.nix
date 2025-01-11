@@ -101,6 +101,7 @@
         amplocker = self.packages.${system}.amplocker;
         grainbow = self.packages.${system}.grainbow;
         papu = self.packages.${system}.papu;
+        kmidimon = self.packages.${system}.kmidimon;
       });
 
       devShells.${system}.juce = pkgs.callPackage ./devshell/juce.nix { };
