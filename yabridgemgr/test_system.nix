@@ -25,7 +25,7 @@ in nixpkgs.lib.nixosSystem {
           experimental-features = nix-command flakes
         '';
       };
-      hardware.pulseaudio.enable = true;
+      hardware.pulseaudio.enable = false;
       hardware.pulseaudio.support32Bit = true;
     }
     {
@@ -38,7 +38,17 @@ in nixpkgs.lib.nixosSystem {
         };
       };
       services.displayManager.defaultSession = "xfce";
-      environment.systemPackages = with pkgs; [ carla ];
+      environment.systemPackages = with pkgs; [ carla firefox ];
+    }
+    {
+      imports = [ "${nixpkgs}/nixos/modules/virtualisation/qemu-vm.nix" ];
+      virtualisation.qemu.options = [
+        "-smp 4"
+        "-m 4096"
+        "-audiodev pipewire,id=audiodev1"
+        "-device intel-hda"
+        "-device hda-duplex,audiodev=audiodev1"
+      ];
     }
     self.nixosModules.yabridgemgr
     {
@@ -46,46 +56,6 @@ in nixpkgs.lib.nixosSystem {
         user = "audio";
         enable = true;
       };
-    }
-    {
-      # environment.systemPackages = with pkgs; [ yabridge yabridgectl ];
-      # systemd.user.tmpfiles.rules = let
-      #   ybcfg = pkgs.writeText "yabridgecfg" ''
-      #     plugin_dirs = [
-      #       'yabridgemgr/drive_c/Program Files/Common Files/VST2',
-      #       'yabridgemgr/drive_c/Program Files/Common Files/VST3',
-      #     ]
-      #     vst2_location = 'centralized'
-      #     no_verify = false
-      #     blacklist = []
-      #   '';
-      # in [
-      #   "d %h/yabridgemgr - - - - -"
-      #   "C %h/.config/yabridgectl/config.toml - - - - ${ybcfg}"
-      # ];
-      # systemd.user.services.yabridgemgr_mountprefix = {
-      #   description = "Mount yabridge prefix";
-      #   after = [ "systemd-tmpfiles-setup.service" ];
-      #   wantedBy = [ "default.target" ];
-      #   serviceConfig = {
-      #     RuntimeDirectory = "yabridgemgr";
-      #     ExecStart = "${
-      #         self.packages.${system}.mount_prefix
-      #       }/bin/mount_prefix yabridgemgr";
-      #     RemainAfterExit = "yes";
-      #   };
-      # };
-      # systemd.user.services.yabridgemgr_sync = {
-      #   description = "yabridgectl sync";
-      #   after = [ "yabridgemgr_mountprefix.service" ];
-      #   wantedBy = [ "default.target" ];
-      #   serviceConfig = {
-      #     ExecStart = "${pkgs.yabridgectl}/bin/yabridgectl sync";
-      #     ExecStartPre = "${pkgs.coreutils}/bin/sleep 5";
-      #     Environment = "NIX_PROFILES=/run/current-system/sw";
-      #     RemainAfterExit = "yes";
-      #   };
-      # };
     }
   ];
 }
