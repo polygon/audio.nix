@@ -16,6 +16,8 @@
       };
     in {
       packages.${system} = {
+        # Toosl
+        kmidimon = pkgs.callPackage ./kmidimon.nix { };
         # Various VSTs
         amplocker = pkgs.callPackage ./vst/amplocker { };
         atlas2 = pkgs.callPackage ./vst/atlas2.nix { };
