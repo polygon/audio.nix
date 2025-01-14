@@ -102,6 +102,7 @@
         grainbow = self.packages.${system}.grainbow;
         papu = self.packages.${system}.papu;
         kmidimon = self.packages.${system}.kmidimon;
+        bitwig-studio5-latest-unwrapped = self.packages.${system}.bitwig-studio5-3-beta-unwrapped;
       });
 
       devShells.${system}.juce = pkgs.callPackage ./devshell/juce.nix { };
