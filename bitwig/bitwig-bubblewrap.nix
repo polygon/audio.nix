@@ -27,6 +27,7 @@ stdenv.mkDerivation {
   in ''
     mkdir -p $out/bin
     cp ${wrapper} $out/bin/bitwig-studio
+    ln -s ${bitwig-studio}/bin/bitwig-studio $out/bin/bitwig-studio-unwrapped
     cp -r ${bitwig-studio}/share $out
   '';
 }
