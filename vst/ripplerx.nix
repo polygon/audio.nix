@@ -22,6 +22,7 @@
 , libsysprof-capture
 , libpsl
 , sqlite
+, lerc
 }:
 let
   buildType = "Release";
@@ -65,6 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
     libpsl
     libsysprof-capture
     sqlite.dev
+    lerc.dev
   ];
 
   # JUCE dlopens these, make sure they are in rpath
