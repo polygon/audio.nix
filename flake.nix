@@ -103,6 +103,7 @@
         grainbow = self.packages.${system}.grainbow;
         papu = self.packages.${system}.papu;
         kmidimon = self.packages.${system}.kmidimon;
+        ripplerx = self.packages.${system}.ripplerx;
       });
 
       devShells.${system}.juce = pkgs.callPackage ./devshell/juce.nix { };
