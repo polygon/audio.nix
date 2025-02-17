@@ -24,6 +24,7 @@
         plugdata = pkgs.callPackage ./vst/plugdata.nix { };
         paulxstretch = pkgs.callPackage ./vst/paulxstretch.nix { };
         vital = pkgs.callPackage ./vst/vital.nix { };
+        ripplerx = pkgs.callPackage ./vst/ripplerx.nix { };
 
         # Bitwig
         bitwig-studio4 = pkgs.callPackage ./bitwig/bitwig-studio4.nix { };
