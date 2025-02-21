@@ -29,13 +29,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "ripplerx";
-  version = "v1.2.3";
+  version = "v1.4.1";
 
   src = fetchFromGitHub {
     owner = "tiagolr";
     repo = finalAttrs.pname;
     rev = "${finalAttrs.version}";
-    sha256 = "sha256-vqDlLvx3ErkZXYVeYkqvgkYuhZZnCl+f3fL54Z3Z06w=";
+    sha256 = "sha256-MlUDqUpPyrh/Wdt7KD2plKdTmkiqDSYqA/eBGDWBhGU=";
     fetchSubmodules = true; # JUCE plugins usually pull JUCE and other deps via submodules
   };
 
