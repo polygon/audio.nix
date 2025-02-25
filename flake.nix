@@ -25,6 +25,7 @@
         paulxstretch = pkgs.callPackage ./vst/paulxstretch.nix { };
         vital = pkgs.callPackage ./vst/vital.nix { };
         ripplerx = pkgs.callPackage ./vst/ripplerx.nix { };
+        aida-x = pkgs.callPackage ./vst/aida-x.nix { };
 
         # Bitwig
         bitwig-studio4 = pkgs.callPackage ./bitwig/bitwig-studio4.nix { };
@@ -110,6 +111,7 @@
         papu = self.packages.${system}.papu;
         kmidimon = self.packages.${system}.kmidimon;
         ripplerx = self.packages.${system}.ripplerx;
+        aida-x = self.packages.${system}.aida-x;
       });
 
       devShells.${system}.juce = pkgs.callPackage ./devshell/juce.nix { };
