@@ -17,13 +17,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "aida-x";
-  version = "1.1.0";
+  version = "41eb988f5e0fd2c20a598060f65a853cf0eb9e10";
 
   src = fetchFromGitHub {
     owner = "AidaDSP";
     repo = "AIDA-X";
     rev = "${finalAttrs.version}";
-    sha256 = "sha256-qBoUojQDp7a5MrdIvbXmhcTuYIRPNwAaQ/ascTZ7NRI=";
+    sha256 = "sha256-2CYpxLC+Ap01PxZWLNAVgA39Zbl0Obtg85vydSl6ZQ0=";
     fetchSubmodules = true;
   };
 
