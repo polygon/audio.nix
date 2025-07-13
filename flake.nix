@@ -2,7 +2,7 @@
   description = "Audio Nix packages and modules";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nix-buildproxy.url = "github:polygon/nix-buildproxy/v0.1.0";
   };
 
@@ -35,8 +35,8 @@
           pkgs.callPackage ./bitwig/bitwig-studio-5.2.nix { };
         bitwig-studio5-3-unwrapped =
           pkgs.callPackage ./bitwig/bitwig-studio-5.3.nix { };
-#        bitwig-studio5-3-beta-unwrapped =
-#          pkgs.callPackage ./bitwig/bitwig-studio-5.3-beta.nix { };
+        #        bitwig-studio5-3-beta-unwrapped =
+        #          pkgs.callPackage ./bitwig/bitwig-studio-5.3-beta.nix { };
 
         bitwig-studio5-2 = pkgs.callPackage ./bitwig/bitwig-bubblewrap.nix {
           bitwig-studio = self.packages.${system}.bitwig-studio5-2-unwrapped;
@@ -45,12 +45,11 @@
           bitwig-studio = self.packages.${system}.bitwig-studio5-3-unwrapped;
         };
 
-
-#        bitwig-studio5-3-beta =
-#          pkgs.callPackage ./bitwig/bitwig-bubblewrap.nix {
-#            bitwig-studio =
-#              self.packages.${system}.bitwig-studio5-3-beta-unwrapped;
-#          };
+        #        bitwig-studio5-3-beta =
+        #          pkgs.callPackage ./bitwig/bitwig-bubblewrap.nix {
+        #            bitwig-studio =
+        #              self.packages.${system}.bitwig-studio5-3-beta-unwrapped;
+        #          };
         bitwig-studio5-latest = self.packages.${system}.bitwig-studio5-3;
         bitwig-studio5-stable-latest = self.packages.${system}.bitwig-studio5-3;
 
