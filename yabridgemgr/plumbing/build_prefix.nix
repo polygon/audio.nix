@@ -1,7 +1,8 @@
 { runCommand, wineWowPackages, fetchzip, xorg, squashfsTools
 , username ? "wineuser", plugins ? [ ] }:
 runCommand "build_prefix" {
-  nativeBuildInputs = [ wineWowPackages.full xorg.xorgserver squashfsTools ];
+  nativeBuildInputs =
+    [ wineWowPackages.yabridge xorg.xorgserver squashfsTools ];
 } (''
   mkdir $out
   export WINEPREFIX=$(pwd)/prefix
@@ -16,11 +17,16 @@ runCommand "build_prefix" {
   echo "--------------------"
   echo "Creating Wine Prefix"
   echo "--------------------"
+  DISPLAY= wine hostname
+  wineserver --wait
   wine hostname
+  wineserver --wait
 
   echo "--------------------"
   echo "Installing Plugins"
   echo "--------------------"
+
+  echo "display: $DISPLAY"
 
 '' + (builtins.foldl' (a: b: a + b + "\n") "" plugins) + ''
 
