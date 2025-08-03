@@ -8,7 +8,7 @@
 , pkg-config
 , alsa-lib
 , freetype
-, webkitgtk
+, webkitgtk_4_1
 , curl
 , xorg
 , python3
@@ -42,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     alsa-lib
     freetype
-    webkitgtk
+    webkitgtk_4_1
     curl
     xorg.libX11
     xorg.xrandr

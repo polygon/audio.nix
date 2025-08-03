@@ -33,7 +33,7 @@
 , python3
 , sqlite
 , gcc11Stdenv
-, webkitgtk
+, webkitgtk_4_1
 }:
 let
   # JUCE version in submodules is incompatible with GCC12
@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
     pcre2
     python3
     sqlite
-    webkitgtk
+    webkitgtk_4_1
     gcc11
   ];
 

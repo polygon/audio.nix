@@ -24,7 +24,7 @@
 , xorg
 , zlib
 
-, webkitgtk
+, webkitgtk_4_1
 , curl
 , fftwFloat
 , jack2
