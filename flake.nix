@@ -26,6 +26,7 @@
         vital = pkgs.callPackage ./vst/vital.nix { };
         ripplerx = pkgs.callPackage ./vst/ripplerx.nix { };
         aida-x = pkgs.callPackage ./vst/aida-x.nix { };
+        iem-plugin-suite = pkgs.callPackage ./vst/iem-plugin-suite.nix { };
 
         # Bitwig
         bitwig-studio4 = pkgs.callPackage ./bitwig/bitwig-studio4.nix { };
