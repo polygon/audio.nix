@@ -112,6 +112,7 @@
         kmidimon = self.packages.${system}.kmidimon;
         ripplerx = self.packages.${system}.ripplerx;
         aida-x = self.packages.${system}.aida-x;
+        iem-plugin-suite = self.packages.${system}.iem-plugin-suite;
       });
 
       devShells.${system}.juce = pkgs.callPackage ./devshell/juce.nix { };
