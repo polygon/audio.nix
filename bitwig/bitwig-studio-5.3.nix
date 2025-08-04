@@ -2,7 +2,7 @@
 , glib, gtk3, harfbuzz, lib, libglvnd, libjack2, libjpeg, libxkbcommon
 , makeWrapper, pango, pipewire, pulseaudio, wrapGAppsHook, xdg-utils, xorg, zlib
 
-, webkitgtk, curl, fftwFloat, jack2, vulkan-loader }:
+, webkitgtk_4_1, curl, fftwFloat, jack2, vulkan-loader }:
 
 stdenv.mkDerivation rec {
   pname = "bitwig-studio";

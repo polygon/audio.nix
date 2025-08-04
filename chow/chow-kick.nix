@@ -33,7 +33,7 @@
 , sqlite
 , stdenv
 , util-linuxMinimal
-, webkitgtk
+, webkitgtk_4_1
 }:
 
 stdenv.mkDerivation rec {
@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
     python3
     sqlite
     util-linuxMinimal
-    webkitgtk
+    webkitgtk_4_1
   ];
 
   cmakeFlags = [
