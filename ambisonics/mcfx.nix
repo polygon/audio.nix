@@ -34,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "kronihias";
     repo = "mcfx";
     rev = "v${finalAttrs.version}";
-    sha256 = "sha256-zAQQTFSS6T4Ay1qYTdQf47pRXbqAGTc6jDtUKjChZso="; # You'll need to add the correct hash after first build attempt
+    sha256 = "sha256-zAQQTFSS6T4Ay1qYTdQf47pRXbqAGTc6jDtUKjChZso=";
     fetchSubmodules = true;
   };
 
