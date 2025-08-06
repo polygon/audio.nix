@@ -26,8 +26,13 @@
         vital = pkgs.callPackage ./vst/vital.nix { };
         ripplerx = pkgs.callPackage ./vst/ripplerx.nix { };
         aida-x = pkgs.callPackage ./vst/aida-x.nix { };
+
+        # Ambisonics
         iem-plugin-suite = pkgs.callPackage ./ambisonics/iem-plugin-suite.nix { };
         mcfx = pkgs.callPackage ./ambisonics/mcfx.nix { };
+
+        # Computer Music
+        plugincollider = pkgs.callPackage ./computer-music/plugincollider.nix { };
 
         # Bitwig
         bitwig-studio4 = pkgs.callPackage ./bitwig/bitwig-studio4.nix { };
@@ -115,6 +120,7 @@
         aida-x = self.packages.${system}.aida-x;
         iem-plugin-suite = self.packages.${system}.iem-plugin-suite;
         mcfx = self.packages.${system}.mcfx;
+        plugincollider = self.packages.${system}.plugincollider;
       });
 
       devShells.${system}.juce = pkgs.callPackage ./devshell/juce.nix { };
