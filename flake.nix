@@ -21,7 +21,6 @@
         # Various VSTs
         amplocker = pkgs.callPackage ./vst/amplocker { };
         atlas2 = pkgs.callPackage ./vst/atlas2.nix { };
-        plugdata = pkgs.callPackage ./vst/plugdata.nix { };
         paulxstretch = pkgs.callPackage ./vst/paulxstretch.nix { };
         vital = pkgs.callPackage ./vst/vital.nix { };
         ripplerx = pkgs.callPackage ./vst/ripplerx.nix { };
@@ -98,7 +97,6 @@
 
       overlays.default = (final: prev: {
         atlas2 = self.packages.${system}.atlas2;
-        plugdata = self.packages.${system}.plugdata;
         paulxstretch = self.packages.${system}.paulxstretch;
         bitwig-studio4 = self.packages.${system}.bitwig-studio4;
         bitwig-studio5 = self.packages.${system}.bitwig-studio5;
