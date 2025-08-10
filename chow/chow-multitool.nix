@@ -26,7 +26,7 @@
 , pcre2
 , pkg-config
 , sqlite
-, webkitgtk
+, webkitgtk_4_1
 , stdenv
 }:
 stdenv.mkDerivation rec {
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     pcre
     pcre2
     sqlite
-    webkitgtk
+    webkitgtk_4_1
   ];
 
   cmakeFlags = [

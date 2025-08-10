@@ -9,6 +9,7 @@ Assorted audio packages for Nix(OS)/Linux.
 * Audio Assault AmpLocker
 * A number of CHOW plugins
 * PAPU
+* [IEM Plugin Suite](https://git.iem.at/audioplugins/IEMPluginSuite)
 * Some other stuff
 
 Mostly things I use myself, provided as-is. Please see [here](#non-support) before opening tickets.
