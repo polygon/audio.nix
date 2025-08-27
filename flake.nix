@@ -35,6 +35,8 @@
           pkgs.callPackage ./bitwig/bitwig-studio-5.2.nix { };
         bitwig-studio5-3-unwrapped =
           pkgs.callPackage ./bitwig/bitwig-studio-5.3.nix { };
+        bitwig-studio6-0-beta-unwrapped =
+          pkgs.callPackage ./bitwig/bitwig-studio-6.0-beta.nix { };
         #        bitwig-studio5-3-beta-unwrapped =
         #          pkgs.callPackage ./bitwig/bitwig-studio-5.3-beta.nix { };
 
@@ -44,13 +46,18 @@
         bitwig-studio5-3 = pkgs.callPackage ./bitwig/bitwig-bubblewrap.nix {
           bitwig-studio = self.packages.${system}.bitwig-studio5-3-unwrapped;
         };
+        bitwig-studio6-0-beta =
+          pkgs.callPackage ./bitwig/bitwig-bubblewrap.nix {
+            bitwig-studio =
+              self.packages.${system}.bitwig-studio6-0-beta-unwrapped;
+          };
 
         #        bitwig-studio5-3-beta =
         #          pkgs.callPackage ./bitwig/bitwig-bubblewrap.nix {
         #            bitwig-studio =
         #              self.packages.${system}.bitwig-studio5-3-beta-unwrapped;
         #          };
-        bitwig-studio5-latest = self.packages.${system}.bitwig-studio5-3;
+        bitwig-studio6-latest = self.packages.${system}.bitwig-studio6-0-beta;
         bitwig-studio5-stable-latest = self.packages.${system}.bitwig-studio5-3;
 
         # Chow plugins
@@ -95,7 +102,7 @@
         paulxstretch = self.packages.${system}.paulxstretch;
         bitwig-studio4 = self.packages.${system}.bitwig-studio4;
         bitwig-studio5 = self.packages.${system}.bitwig-studio5;
-        bitwig-studio5-latest = self.packages.${system}.bitwig-studio5-latest;
+        bitwig-studio6-latest = self.packages.${system}.bitwig-studio6-latest;
         bitwig-studio5-stable-latest =
           self.packages.${system}.bitwig-studio5-stable-latest;
         chow-centaur = self.packages.${system}.chow-centaur;
