@@ -1,5 +1,5 @@
 { stdenv, fetchurl, alsa-lib, atk, cairo, dpkg, ffmpeg, freetype, gdk-pixbuf
-, glib, gtk3, harfbuzz, lib, libglvnd, libjack2, libjpeg, libxkbcommon
+, glib, gtk3, harfbuzz, lcms, lib, libglvnd, libjack2, libjpeg, libxkbcommon
 , makeWrapper, pango, pipewire, pulseaudio, wrapGAppsHook, xdg-utils, xorg, zlib
 
 , webkitgtk, curl, fftwFloat, jack2, vulkan-loader }:
@@ -33,6 +33,7 @@ stdenv.mkDerivation rec {
     glib
     gtk3
     harfbuzz
+    lcms
     libglvnd
     libjack2
     # libjpeg8 is required for converting jpeg's to colour palettes
