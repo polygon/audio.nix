@@ -101,9 +101,9 @@
         plugdata = self.packages.${system}.plugdata;
         paulxstretch = self.packages.${system}.paulxstretch;
         bitwig-studio4 = self.packages.${system}.bitwig-studio4;
-        bitwig-studio5 = self.packages.${system}.bitwig-studio5;
-        bitwig-studio6-latest = self.packages.${system}.bitwig-studio6-latest;
-        bitwig-studio5-stable-latest =
+        bitwig-studio5 = self.packages.${system}.bitwig-studio5-3;
+        bitwig-studio-latest = self.packages.${system}.bitwig-studio6-latest;
+        bitwig-studio-stable-latest =
           self.packages.${system}.bitwig-studio5-stable-latest;
         chow-centaur = self.packages.${system}.chow-centaur;
         chow-kick = self.packages.${system}.chow-kick;
