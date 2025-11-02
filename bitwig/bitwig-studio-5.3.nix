@@ -1,6 +1,6 @@
 { stdenv, fetchurl, alsa-lib, atk, cairo, dpkg, ffmpeg, freetype, gdk-pixbuf
 , glib, gtk3, harfbuzz, lib, libglvnd, libjack2, libjpeg, libxkbcommon
-, makeWrapper, pango, pipewire, pulseaudio, wrapGAppsHook, xdg-utils, xorg, zlib
+, makeWrapper, pango, pipewire, pulseaudio, wrapGAppsHook3, xdg-utils, xorg, zlib
 
 , webkitgtk, curl, fftwFloat, jack2, vulkan-loader }:
 
@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-VA6p/4cEpJWTF13sIUiTHtMtNTMmjRObySKhz0sLkiw=";
   };
 
-  nativeBuildInputs = [ dpkg makeWrapper wrapGAppsHook ];
+  nativeBuildInputs = [ dpkg makeWrapper wrapGAppsHook3 ];
 
   unpackCmd = ''
     mkdir -p root
