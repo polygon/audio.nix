@@ -1,68 +1,52 @@
-{
-  lib
-, stdenv
-, requireFile
-, unzip
-, autoPatchelfHook
-, alsa-lib
-, xorg
-, curlWithGnuTls
-, libGL
-, freetype
-, glibc
-, patchelf
-, bsdiff
-, coreutils
-}:
+{ lib, stdenv, fetchurl, unzip, autoPatchelfHook, writeShellScript
+, steam-run-free, glib, alsa-lib, xorg, curl, openssl, libGL, freetype
+, glibc_multi, patchelf, coreutils }:
 stdenv.mkDerivation rec {
   pname = "Amp Locker";
-  version = "1.0.5";
+  version = "1.0.9";
 
-  src = requireFile rec {
-    name = "Amp+Locker+Linux.zip";
-    message = ''
-      This Nix expression requires the ${pname} plugin download is
-      already part of the store. Please download your purchased
-      copy and place the ${name} file into the Nix Store with:
-
-      "nix store add-file ${name}"
-    '';
-    # Created using nix hash file Amp+Locker+Linux.zip
-    # UPDATE WARNING:
-    # This derivation does binary patching in order to remove the need
-    # to put things into /opt/Audio\ Assault. This is very sensitive to
-    # specific addresses of strings in the executables and will likely break
-    # for any kind of update.
-    sha256 = "sha256-408l/iSIYh67ZIJmq53DwTi1KyL5HkxcmFgzlEjEyUk=";
+  src = fetchurl {
+    url =
+      "https://audioassaultdownloads.s3.amazonaws.com/AmpLocker/AmpLocker109/AmpLockerLinux.zip";
+    sha256 = "sha256-9LqMGBtFGgz9CPFUn4ShLYiN21wTBRWDgYOsmdDF478=";
   };
 
-  unpackPhase = ''
-    unzip ${src}
-  '';
-
-  nativeBuildInputs = [
-    unzip
-    patchelf
-    bsdiff
-    coreutils
-  ];
+  nativeBuildInputs = [ unzip patchelf coreutils ];
 
   buildInputs = [
-
+    steam-run-free
+    alsa-lib
+    xorg.libX11
+    curl
+    openssl
+    libGL
+    freetype
+    glibc_multi
   ];
 
   dontConfigure = true;
   dontBuild = true;
   dontStrip = true;
+  dontUnpack = true;
 
   installPhase = ''
-    mkdir -p $out
-    mkdir -p $out/bin
-    mkdir -p $out/lib/vst3
-    mkdir -p $out/"Audio Assault"
-    cp "Amp Locker Standalone" $out/bin/
-    cp -r "Amp Locker.vst3" $out/lib/vst3/
-    cp -r "AmpLockerData" $out/"Audio Assault"/
+        unzip -q "$src" -d .
+        ls -la
+        mkdir -p $out
+        mkdir -p $out/bin
+        mkdir -p $out/lib/vst3
+        mkdir -p $out/"Audio Assault"
+        cp -r "Amp Locker Standalone" $out/bin/".Amp_Locker_Standalone_unwrapped"
+        cp -r "Amp Locker.vst3" $out/lib/vst3/
+        cp -r "AmpLockerData" $out/"Audio Assault"/
+
+        # Wrap the standalone with steam-run, it seems to segfault otherwise trying to access FHS paths
+        cat > $out/bin/Amp_Locker_Standalone <<'EOF'
+    #!/usr/bin/env sh
+    HERE="$(dirname "$0")"
+    ${steam-run-free}/bin/steam-run "''${HERE}/.Amp_Locker_Standalone_unwrapped" "$@"
+    EOF
+        chmod +x $out/bin/Amp_Locker_Standalone
   '';
 
   preFixup = let
@@ -70,38 +54,13 @@ stdenv.mkDerivation rec {
       alsa-lib
       xorg.libX11
       stdenv.cc.cc.lib
-      curlWithGnuTls
+      curl
+      openssl
       libGL
       freetype
-      glibc
+      glibc_multi
     ];
-    new_path_address_so = "0x804610";
-    new_path_address_vst3 = "0xa55170";
-    new_path_length = "216";  # Path will be truncated here should it somehow be longer, but zero-terminator will not be overwritten
-    standalone_patch = ./standalone.patch;
-    vst3_patch = ./vst3.patch;
-  in
-  ''
-    # Patch standalone binary to fetch path to base-dir of assets from different and longer string
-    # into which we will then inject the path of the current result directory
-    bspatch $out/bin/"Amp Locker Standalone" $out/patched ${standalone_patch}
-    mv -f $out/patched $out/bin/"Amp Locker Standalone"
-
-    # Now, inject the nix store path into the binary
-    echo -n -e "$out\x00" | dd of=$out/bin/"Amp Locker Standalone" conv=notrunc bs=1 seek=$((${new_path_address_so})) count=${new_path_length}
-    chmod +x $out/bin/"Amp Locker Standalone"
-
-    # Patch VST3 to fetch path to base-dir of assets from different and longer string
-    # into which we will then inject the path of the current result directory
-    bspatch $out/lib/vst3/"Amp Locker.vst3"/Contents/x86_64-linux/"Amp Locker.so" $out/patched ${vst3_patch}
-    mv -f $out/patched $out/lib/vst3/"Amp Locker.vst3"/Contents/x86_64-linux/"Amp Locker.so"
-
-    # Now, inject the nix store path into the binary
-    echo -n -e "$out\x00" | dd of=$out/lib/vst3/"Amp Locker.vst3"/Contents/x86_64-linux/"Amp Locker.so" conv=notrunc bs=1 seek=$((${new_path_address_vst3})) count=${new_path_length}
-    chmod +x $out/lib/vst3/"Amp Locker.vst3"/Contents/x86_64-linux/"Amp Locker.so"
-
-    patchelf --set-interpreter $(cat ${stdenv.cc}/nix-support/dynamic-linker) $out/bin/"Amp Locker Standalone"
-    patchelf --add-rpath ${libraryPath} $out/bin/"Amp Locker Standalone"
+  in ''
     patchelf --add-rpath ${libraryPath} $out/lib/vst3/"Amp Locker.vst3"/Contents/x86_64-linux/"Amp Locker.so"
   '';
 
@@ -110,6 +69,7 @@ stdenv.mkDerivation rec {
     homepage = "https://audioassault.mx/";
     platforms = platforms.all;
     maintainers = with maintainers; [ polygon ];
-    mainProgram = "Amp Locker Standalone";
+    mainProgram = "Amp_Locker_Standalone";
+    license = licenses.unfree;
   };
 }
