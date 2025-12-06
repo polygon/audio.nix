@@ -6,7 +6,7 @@
   mkShell
 , freetype
 , alsa-lib
-, webkitgtk
+, webkitgtk_4_1
 , curl
 , gtk3
 , xorg
@@ -32,7 +32,7 @@ mkShell {
   buildInputs = [
     freetype
     alsa-lib
-    webkitgtk
+    webkitgtk_4_1
     curl
     gtk3
     jack2

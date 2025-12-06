@@ -5,7 +5,7 @@
 , pkg-config
 , alsa-lib
 , freetype
-, webkitgtk
+, webkitgtk_4_1
 , curl
 , fftwFloat
 , jack2
@@ -43,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     freetype
     alsa-lib
-    webkitgtk
+    webkitgtk_4_1
     curl
     fftwFloat
     jack2

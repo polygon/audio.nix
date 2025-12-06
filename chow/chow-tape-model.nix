@@ -7,7 +7,7 @@
 , fetchFromGitHub
 , freeglut
 , freetype
-, gcc11
+#, gcc11
 , gtk3
 , lib
 , libGL
@@ -32,14 +32,15 @@
 , pkg-config
 , python3
 , sqlite
-, gcc11Stdenv
-, webkitgtk
+#, gcc11Stdenv
+, webkitgtk_4_1
+, stdenv
 }:
-let
+#let
   # JUCE version in submodules is incompatible with GCC12
   # See here: https://forum.juce.com/t/build-fails-on-fedora-wrong-c-version/50902/2
-  stdenv = gcc11Stdenv;
-in
+  #stdenv = gcc11Stdenv;
+#in
 stdenv.mkDerivation rec {
   pname = "ChowTapeModel";
   version = "2.11.4";
@@ -84,8 +85,7 @@ stdenv.mkDerivation rec {
     pcre2
     python3
     sqlite
-    webkitgtk
-    gcc11
+    webkitgtk_4_1
   ];
 
   cmakeFlags = [
