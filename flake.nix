@@ -8,9 +8,13 @@
         url = "github:polygon/nix-buildproxy/v0.1.0";
         inputs.nixpkgs.follows = "nixpkgs";
       };
+    mucap = {
+      url = "github:polygon/mucap";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, nix-buildproxy }:
+  outputs = { self, nixpkgs, nix-buildproxy, mucap }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -88,6 +92,9 @@
         wine-midichordanalyzer =
           pkgs.callPackage ./yabridgemgr/plugins/piz_midichordanalyzer.nix { };
 
+        # Re-export mucap
+        mucap = mucap.packages.${system}.mucap;
+
         # Mainly used for dev, squashfs image in results
         build_prefix =
           pkgs.callPackage ./yabridgemgr/plumbing/build_prefix.nix {
@@ -122,6 +129,7 @@
         kmidimon = self.packages.${system}.kmidimon;
         ripplerx = self.packages.${system}.ripplerx;
         aida-x = self.packages.${system}.aida-x;
+        mucap = self.packages.${system}.mucap;
       });
 
       devShells.${system}.juce = pkgs.callPackage ./devshell/juce.nix { };
