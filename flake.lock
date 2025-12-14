@@ -32,11 +32,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1765669216,
-        "narHash": "sha256-t0WvZ12zLzHLMv4LKNIWTuohPKuauGkQTFX2FhYPJ3s=",
+        "lastModified": 1765670987,
+        "narHash": "sha256-LqcywUPXsQMrcl4zakVYHotLGfq2rzASMYuHrQp3KaY=",
         "owner": "polygon",
         "repo": "mucap",
-        "rev": "6f97d6cc8b660e7fc4982c6c1bf4f2e2df25d5f1",
+        "rev": "f798f8c4757e0dc80de5c1ddcb8be14aac916b99",
         "type": "github"
       },
       "original": {
