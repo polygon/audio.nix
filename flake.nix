@@ -43,10 +43,8 @@
           pkgs.callPackage ./bitwig/bitwig-studio-5.2.nix { };
         bitwig-studio5-3-unwrapped =
           pkgs.callPackage ./bitwig/bitwig-studio-5.3.nix { };
-        bitwig-studio6-0-beta-unwrapped =
-          pkgs.callPackage ./bitwig/bitwig-studio-6.0-beta.nix { };
-        #        bitwig-studio5-3-beta-unwrapped =
-        #          pkgs.callPackage ./bitwig/bitwig-studio-5.3-beta.nix { };
+        bitwig-studio6-0-unwrapped =
+          pkgs.callPackage ./bitwig/bitwig-studio-6.0.nix { };
 
         bitwig-studio5-2 = pkgs.callPackage ./bitwig/bitwig-bubblewrap.nix {
           bitwig-studio = self.packages.${system}.bitwig-studio5-2-unwrapped;
@@ -54,10 +52,10 @@
         bitwig-studio5-3 = pkgs.callPackage ./bitwig/bitwig-bubblewrap.nix {
           bitwig-studio = self.packages.${system}.bitwig-studio5-3-unwrapped;
         };
-        bitwig-studio6-0-beta =
+        bitwig-studio6-0 =
           pkgs.callPackage ./bitwig/bitwig-bubblewrap.nix {
             bitwig-studio =
-              self.packages.${system}.bitwig-studio6-0-beta-unwrapped;
+              self.packages.${system}.bitwig-studio6-0-unwrapped;
           };
 
         #        bitwig-studio5-3-beta =
@@ -65,7 +63,7 @@
         #            bitwig-studio =
         #              self.packages.${system}.bitwig-studio5-3-beta-unwrapped;
         #          };
-        bitwig-studio6-latest = self.packages.${system}.bitwig-studio6-0-beta;
+        bitwig-studio6-latest = self.packages.${system}.bitwig-studio6-0;
         bitwig-studio5-stable-latest = self.packages.${system}.bitwig-studio5-3;
 
         # Chow plugins
