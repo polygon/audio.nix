@@ -1,21 +1,51 @@
-{ stdenv, fetchurl, alsa-lib, atk, cairo, dpkg, ffmpeg, freetype, gdk-pixbuf
-, glib, gtk3, harfbuzz, lcms, lib, libglvnd, libjack2, libjpeg, libxkbcommon
-, makeWrapper, pango, pipewire, pulseaudio, wrapGAppsHook3, xdg-utils, xorg
-, zlib
-
-, curl, fftwFloat, jack2, vulkan-loader }:
-
+{
+  stdenv,
+  fetchurl,
+  alsa-lib,
+  atk,
+  cairo,
+  dpkg,
+  ffmpeg,
+  freetype,
+  gdk-pixbuf,
+  glib,
+  gtk3,
+  harfbuzz,
+  lcms,
+  lib,
+  libglvnd,
+  libjack2,
+  libjpeg,
+  libxkbcommon,
+  libxcb,
+  libxcursor,
+  libx11,
+  libxtst,
+  libxcb-util,
+  libxcb-wm,
+  libxrandr,
+  makeWrapper,
+  pango,
+  pipewire,
+  pulseaudio,
+  wrapGAppsHook3,
+  xdg-utils,
+  zlib,
+  curl,
+  fftwFloat,
+  jack2,
+  vulkan-loader,
+}:
 stdenv.mkDerivation rec {
   pname = "bitwig-studio";
-    version = "6.0.6";
+  version = "6.0.6";
 
   src = fetchurl {
-    url =
-      "https://downloads-secure.bitwig.com/${version}/bitwig-studio-${version}.deb?source_url=/dl/Bitwig%20Studio/${version}/installer_linux/";
+    url = "https://downloads-secure.bitwig.com/${version}/bitwig-studio-${version}.deb?source_url=/dl/Bitwig%20Studio/${version}/installer_linux/";
     sha256 = "sha256-tczgtA4v3a5Qjxaa6ZvaiFDWD6dhRw19vj8IMxkyCNI=";
   };
 
-  nativeBuildInputs = [ dpkg makeWrapper wrapGAppsHook3 ];
+  nativeBuildInputs = [dpkg makeWrapper wrapGAppsHook3];
 
   unpackCmd = ''
     mkdir -p root
@@ -25,7 +55,7 @@ stdenv.mkDerivation rec {
   dontBuild = true;
   dontWrapGApps = true; # we only want $gappsWrapperArgs here
 
-  buildInputs = with xorg; [
+  buildInputs = [
     alsa-lib
     atk
     cairo
@@ -40,17 +70,17 @@ stdenv.mkDerivation rec {
     # libjpeg8 is required for converting jpeg's to colour palettes
     libjpeg
     libxcb
-    libXcursor
-    libX11
-    libXtst
+    libxcursor
+    libx11
+    libxtst
     libxkbcommon
     pango
     pipewire
     pulseaudio
     stdenv.cc.cc.lib
     vulkan-loader
-    xcbutil
-    xcbutilwm
+    libxcb-util
+    libxcb-wm
     zlib
   ];
 
@@ -83,8 +113,8 @@ stdenv.mkDerivation rec {
       # make xdg-open overrideable at runtime
       wrapProgram $f \
         "''${gappsWrapperArgs[@]}" \
-        --prefix PATH : "${lib.makeBinPath [ ffmpeg ]}" \
-        --suffix PATH : "${lib.makeBinPath [ xdg-utils ]}" \
+        --prefix PATH : "${lib.makeBinPath [ffmpeg]}" \
+        --suffix PATH : "${lib.makeBinPath [xdg-utils]}" \
         --suffix LD_LIBRARY_PATH : "${lib.strings.makeLibraryPath buildInputs}"
     done
 
@@ -103,7 +133,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.bitwig.com/";
     #license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ bfortz michalrus mrVanDalo ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [bfortz michalrus mrVanDalo];
   };
 }
