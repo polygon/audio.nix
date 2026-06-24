@@ -1,9 +1,8 @@
 { stdenv, fetchurl, alsa-lib, atk, cairo, dpkg, ffmpeg, freetype, gdk-pixbuf
 , glib, gtk3, harfbuzz, lcms, lib, libglvnd, libjack2, libjpeg, libxkbcommon
-, makeWrapper, pango, pipewire, pulseaudio, wrapGAppsHook3, xdg-utils, xorg
-, zlib
-
-, curl, fftwFloat, jack2, vulkan-loader }:
+, libxcb, libxcursor, libxtst, libx11, libxcb-util, libxcb-wm
+, makeWrapper, pango, pipewire, pulseaudio, wrapGAppsHook3, xdg-utils
+, zlib, vulkan-loader }:
 
 stdenv.mkDerivation rec {
   pname = "bitwig-studio";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
   dontBuild = true;
   dontWrapGApps = true; # we only want $gappsWrapperArgs here
 
-  buildInputs = with xorg; [
+  buildInputs = [
     alsa-lib
     atk
     cairo
@@ -40,17 +39,17 @@ stdenv.mkDerivation rec {
     # libjpeg8 is required for converting jpeg's to colour palettes
     libjpeg
     libxcb
-    libXcursor
-    libX11
-    libXtst
+    libxcursor
+    libx11
+    libxtst
     libxkbcommon
     pango
     pipewire
     pulseaudio
     stdenv.cc.cc.lib
     vulkan-loader
-    xcbutil
-    xcbutilwm
+    libxcb-util
+    libxcb-wm
     zlib
   ];
 
